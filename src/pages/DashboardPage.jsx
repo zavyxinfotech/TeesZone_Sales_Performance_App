@@ -135,10 +135,7 @@ export const DashboardPage = () => {
 
         {/* Main Dashboard Content */}
         <main className="flex-1 w-full px-3.5 sm:px-6 lg:px-10 py-4 sm:py-6 space-y-4 sm:space-y-6 max-w-full">
-          {/* 4 Primary Skeuomorphic KPI Cards */}
-          <KPIGrid />
-
-          {/* Mid Row: Performance Chart & Pipeline Health */}
+          {/* Row 1: Target vs Actual Performance Chart & Pipeline Health Card (Placed ABOVE KPI Cards) */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
             <div className="lg:col-span-2">
               <PerformanceChart />
@@ -148,7 +145,10 @@ export const DashboardPage = () => {
             </div>
           </div>
 
-          {/* Bottom Row: Team Performance Table & Forecast */}
+          {/* Row 2: 4 Primary Skeuomorphic KPI Cards */}
+          <KPIGrid />
+
+          {/* Row 3: Bottom Row: Team Performance Table & Forecast */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
             <div className="lg:col-span-2">
               <TeamTable onSelectRep={(rep) => setSelectedRep(rep)} />

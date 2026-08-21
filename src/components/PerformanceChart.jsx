@@ -5,7 +5,8 @@ import { BarChart3 } from 'lucide-react';
 
 export const PerformanceChart = () => {
   const { reps, teamMetrics } = useSalesData();
-  const [viewMode, setViewMode] = useState('team'); // 'team' or 'reps'
+  // Default to Reps breakdown view as requested
+  const [viewMode, setViewMode] = useState('reps'); // 'reps' or 'team'
 
   const maxVal = Math.max(
     teamMetrics.totalTeamTarget * 1.15,
@@ -30,7 +31,7 @@ export const PerformanceChart = () => {
           </p>
         </div>
 
-        {/* View Toggle - Compact and Responsive */}
+        {/* View Toggle - Reps (4) / Team View */}
         <div className="skeuo-inset p-0.5 sm:p-1 flex items-center rounded-xl text-[10px] sm:text-xs font-black self-start sm:self-auto">
           <button
             onClick={() => setViewMode('team')}
@@ -131,7 +132,7 @@ export const PerformanceChart = () => {
           </div>
         </div>
       ) : (
-        /* Rep by Rep Comparison */
+        /* Rep by Rep Comparison (Default Initial View) */
         <div className="space-y-3 py-1">
           {reps.map((rep) => {
             const achPct = rep.monthlyTarget > 0 ? Math.round((rep.actualSales / rep.monthlyTarget) * 100) : 0;
