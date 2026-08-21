@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSalesData } from '../context/SalesDataContext';
 import { formatINR } from '../services/googleSheetsService';
-import { BarChart3, TrendingUp } from 'lucide-react';
+import { BarChart3, TrendingUp, Sparkles } from 'lucide-react';
 
 export const PerformanceChart = () => {
   const { reps, teamMetrics } = useSalesData();
@@ -18,35 +18,35 @@ export const PerformanceChart = () => {
   const teamProjectedPct = Math.min(100, Math.round((teamMetrics.projectedTotal / maxVal) * 100));
 
   return (
-    <div className="card-surface p-4 md:p-6 rounded-xl flex flex-col shadow-sm">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+    <div className="spatial-card p-6 flex flex-col justify-between h-full">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div>
-          <h3 className="text-card-heading text-on-surface font-bold flex items-center gap-2">
+          <h3 className="text-card-heading text-on-surface font-black flex items-center gap-2">
             <BarChart3 className="w-5 h-5 text-brand-pink" />
             <span>Target vs Actual Performance</span>
           </h3>
           <p className="text-xs text-on-surface-variant mt-0.5">
-            August 2026 Pipeline Tracking
+            Spatial Comparison • Target vs Actual vs Projected
           </p>
         </div>
 
         {/* View Toggle */}
-        <div className="flex items-center p-1 bg-surface-container rounded-lg text-xs font-semibold">
+        <div className="spatial-pill p-1 flex items-center rounded-xl text-xs font-bold">
           <button
             onClick={() => setViewMode('team')}
-            className={`px-3 py-1 rounded transition ${
+            className={`px-3.5 py-1.5 rounded-lg transition-all ${
               viewMode === 'team'
-                ? 'bg-white text-primary shadow-xs'
+                ? 'bg-primary text-white shadow-xs'
                 : 'text-on-surface-variant hover:text-primary'
             }`}
           >
-            Team Aggregate
+            Team View
           </button>
           <button
             onClick={() => setViewMode('reps')}
-            className={`px-3 py-1 rounded transition ${
+            className={`px-3.5 py-1.5 rounded-lg transition-all ${
               viewMode === 'reps'
-                ? 'bg-white text-primary shadow-xs'
+                ? 'bg-primary text-white shadow-xs'
                 : 'text-on-surface-variant hover:text-primary'
             }`}
           >
@@ -56,10 +56,10 @@ export const PerformanceChart = () => {
       </div>
 
       {viewMode === 'team' ? (
-        /* Team Aggregate Bar Visualizer */
-        <div className="flex-1 flex flex-col justify-end relative mt-4 min-h-[220px]">
+        /* Team Aggregate Spatial Bar Visualizer */
+        <div className="flex-1 flex flex-col justify-end relative mt-2 min-h-[240px]">
           {/* Y Axis Labels */}
-          <div className="absolute left-0 top-0 bottom-6 flex flex-col justify-between text-[10px] md:text-label-caps text-outline w-12 z-10 select-none">
+          <div className="absolute left-0 top-0 bottom-6 flex flex-col justify-between text-[10px] md:text-label-caps text-outline w-12 z-10 select-none font-semibold">
             <span>{formatINR(maxVal, true)}</span>
             <span>{formatINR(maxVal * 0.75, true)}</span>
             <span>{formatINR(maxVal * 0.5, true)}</span>
@@ -77,71 +77,71 @@ export const PerformanceChart = () => {
           </div>
 
           {/* Bars */}
-          <div className="ml-16 mr-4 flex justify-around items-end h-[180px] z-10 gap-6 md:gap-12 relative pb-1">
+          <div className="ml-16 mr-4 flex justify-around items-end h-[200px] z-10 gap-6 md:gap-14 relative pb-1">
             {/* Target Bar */}
-            <div className="w-16 md:w-24 group relative flex flex-col items-center justify-end h-full">
+            <div className="w-16 md:w-28 group relative flex flex-col items-center justify-end h-full">
               <div
                 style={{ height: `${teamTargetPct}%` }}
-                className="w-full bg-secondary-container border border-outline-variant/50 rounded-t-md transition-all duration-500 relative flex items-center justify-center shadow-xs"
+                className="w-full bg-secondary-container/90 border border-outline-variant/60 rounded-t-xl transition-all duration-700 relative flex items-center justify-center shadow-sm group-hover:bg-secondary-container"
               >
-                <span className="text-[10px] font-bold text-on-secondary-container opacity-0 group-hover:opacity-100 transition">
+                <span className="text-[10px] font-extrabold text-on-secondary-container opacity-0 group-hover:opacity-100 transition">
                   100%
                 </span>
               </div>
-              <span className="mt-2 text-[11px] font-bold text-on-surface">Target</span>
+              <span className="mt-2 text-xs font-bold text-on-surface">Target</span>
               {/* Tooltip */}
-              <div className="absolute -top-9 bg-primary text-white text-[11px] font-semibold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-md whitespace-nowrap z-20">
+              <div className="absolute -top-10 bg-primary text-white text-[11px] font-bold py-1.5 px-2.5 rounded-xl opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-xl whitespace-nowrap z-20">
                 Target: {formatINR(teamMetrics.totalTeamTarget)}
               </div>
             </div>
 
             {/* Actual Bar */}
-            <div className="w-16 md:w-24 group relative flex flex-col items-center justify-end h-full">
+            <div className="w-16 md:w-28 group relative flex flex-col items-center justify-end h-full">
               <div
                 style={{ height: `${teamActualPct}%` }}
-                className="w-full bg-[#5a1725] rounded-t-md transition-all duration-500 relative flex items-center justify-center shadow-sm"
+                className="w-full bg-gradient-to-t from-[#3e0211] to-[#5a1725] rounded-t-xl transition-all duration-700 relative flex items-center justify-center shadow-[0_8px_20px_rgba(90,23,37,0.3)] group-hover:brightness-110"
               >
-                <span className="text-[10px] font-bold text-white opacity-0 group-hover:opacity-100 transition">
+                <span className="text-[10px] font-extrabold text-white opacity-0 group-hover:opacity-100 transition">
                   {teamMetrics.teamAchievementPercentage}%
                 </span>
               </div>
-              <span className="mt-2 text-[11px] font-bold text-primary">Actual</span>
+              <span className="mt-2 text-xs font-bold text-primary">Actual</span>
               {/* Tooltip */}
-              <div className="absolute -top-9 bg-[#5a1725] text-white text-[11px] font-semibold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-md whitespace-nowrap z-20">
+              <div className="absolute -top-10 bg-[#5a1725] text-white text-[11px] font-bold py-1.5 px-2.5 rounded-xl opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-xl whitespace-nowrap z-20">
                 Actual: {formatINR(teamMetrics.totalActualSales)} ({teamMetrics.teamAchievementPercentage}%)
               </div>
             </div>
 
             {/* Projected Month-End Bar */}
-            <div className="w-16 md:w-24 group relative flex flex-col items-center justify-end h-full">
+            <div className="w-16 md:w-28 group relative flex flex-col items-center justify-end h-full">
               <div
                 style={{ height: `${teamProjectedPct}%` }}
-                className="w-full bg-gradient-to-t from-brand-pink to-[#ff4081] rounded-t-md transition-all duration-500 relative flex items-center justify-center shadow-sm"
+                className="w-full bg-gradient-to-t from-brand-pink to-[#ff4081] rounded-t-xl transition-all duration-700 relative flex items-center justify-center shadow-[0_8px_24px_rgba(230,0,103,0.35)] group-hover:brightness-110"
               >
-                <span className="text-[10px] font-bold text-white opacity-0 group-hover:opacity-100 transition">
+                <span className="text-[10px] font-extrabold text-white opacity-0 group-hover:opacity-100 transition">
                   {teamMetrics.projectedPercentage}%
                 </span>
               </div>
-              <span className="mt-2 text-[11px] font-bold text-brand-pink">Projected</span>
+              <span className="mt-2 text-xs font-bold text-brand-pink">Projected</span>
               {/* Tooltip */}
-              <div className="absolute -top-9 bg-brand-pink text-white text-[11px] font-semibold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-md whitespace-nowrap z-20">
+              <div className="absolute -top-10 bg-brand-pink text-white text-[11px] font-bold py-1.5 px-2.5 rounded-xl opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-xl whitespace-nowrap z-20">
                 Projected: {formatINR(teamMetrics.projectedTotal)} ({teamMetrics.projectedPercentage}%)
               </div>
             </div>
           </div>
         </div>
       ) : (
-        /* Rep by Rep Target vs Actual Comparison */
+        /* Rep by Rep Comparison */
         <div className="space-y-4 py-2">
           {reps.map((rep) => {
             const achPct = rep.monthlyTarget > 0 ? Math.round((rep.actualSales / rep.monthlyTarget) * 100) : 0;
             const pipePct = rep.monthlyTarget > 0 ? Math.round((rep.expectedRealisticConversion / rep.monthlyTarget) * 100) : 0;
             
             return (
-              <div key={rep.id} className="space-y-1.5 p-2 rounded-lg hover:bg-surface-container/30 transition">
+              <div key={rep.id} className="space-y-2 p-3 rounded-xl bg-surface-container/30 hover:bg-surface-container/60 transition">
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-bold text-on-surface flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-[10px] font-bold">
+                    <span className="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-[10px] font-bold shadow-xs">
                       {rep.avatar}
                     </span>
                     {rep.name}
@@ -151,7 +151,7 @@ export const PerformanceChart = () => {
                   </span>
                 </div>
                 {/* Dual Progress Bar */}
-                <div className="w-full h-3 bg-surface-container rounded-full overflow-hidden flex">
+                <div className="w-full h-3.5 bg-surface-container rounded-full overflow-hidden flex shadow-inner">
                   <div
                     style={{ width: `${Math.min(100, achPct)}%` }}
                     className="bg-[#5a1725] h-full transition-all duration-500"
@@ -159,7 +159,7 @@ export const PerformanceChart = () => {
                   />
                   <div
                     style={{ width: `${Math.min(100 - achPct, pipePct)}%` }}
-                    className="bg-brand-pink/60 h-full transition-all duration-500"
+                    className="bg-brand-pink/70 h-full transition-all duration-500"
                     title={`Expected Conversion: ${formatINR(rep.expectedRealisticConversion)}`}
                   />
                 </div>

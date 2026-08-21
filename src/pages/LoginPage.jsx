@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Sparkles, ArrowRight, ShieldCheck, Mail, Lock, User } from 'lucide-react';
+import { ArrowRight, Mail, Lock, User } from 'lucide-react';
 
 export const LoginPage = () => {
   const { login, register } = useAuth();
@@ -38,49 +38,45 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="bg-surface text-on-surface min-h-screen flex items-center justify-center p-4 md:p-8 selection:bg-brand-pink selection:text-white">
+    <div className="spatial-bg-ambient text-on-surface min-h-screen flex items-center justify-center p-4 md:p-8 selection:bg-brand-pink selection:text-white">
       <div className="w-full max-w-md">
-        {/* Brand Logo */}
-        <div className="flex flex-col items-center justify-center mb-6">
+        {/* Brand Logo - Pure logo without border or duplicate text */}
+        <div className="flex justify-center mb-6">
           <img
             src="/teeszone_logo.png"
-            alt="TEESZONE Logo"
-            className="h-12 md:h-14 w-auto object-contain mb-1"
+            alt="TEESZONE"
+            className="h-12 md:h-14 w-auto object-contain select-none"
             onError={(e) => {
               e.target.style.display = 'none';
             }}
           />
-          <div className="flex items-center gap-1.5 mt-1">
-            <span className="text-xl font-extrabold tracking-tight text-brand-pink">TEESZONE</span>
-            <span className="text-xs text-on-surface-variant font-medium">• Sales Performance Hub</span>
-          </div>
         </div>
 
-        {/* Auth Card */}
-        <div className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 md:p-8 shadow-sm">
+        {/* Spatial Auth Card */}
+        <div className="spatial-card p-6 md:p-8">
           <div className="text-center mb-6">
-            <h1 className="text-2xl font-bold text-primary">
-              {activeTab === 'login' ? 'Welcome Back' : 'Join TEESZONE Team'}
+            <h1 className="text-2xl font-black text-primary">
+              {activeTab === 'login' ? 'Welcome Back' : 'Create Account'}
             </h1>
-            <p className="text-xs text-on-surface-variant mt-1">
+            <p className="text-xs text-on-surface-variant mt-1 font-medium">
               {activeTab === 'login'
-                ? 'Sign in to access your August Sales Pipeline Review.'
-                : 'Create your sales representative account.'}
+                ? 'Sign in to access August Sales Pipeline Review.'
+                : 'Register as a TEESZONE sales representative.'}
             </p>
           </div>
 
-          {/* Tab Toggle */}
-          <div className="flex border-b border-outline-variant mb-6">
+          {/* Spatial Tab Toggle */}
+          <div className="spatial-pill p-1 flex rounded-xl mb-6">
             <button
               type="button"
               onClick={() => {
                 setActiveTab('login');
                 setErrorMsg('');
               }}
-              className={`flex-1 py-2 text-xs font-bold transition border-b-2 ${
+              className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
                 activeTab === 'login'
-                  ? 'text-primary border-primary'
-                  : 'text-on-surface-variant hover:text-primary border-transparent'
+                  ? 'bg-primary text-white shadow-xs'
+                  : 'text-on-surface-variant hover:text-primary'
               }`}
             >
               Login
@@ -91,10 +87,10 @@ export const LoginPage = () => {
                 setActiveTab('signup');
                 setErrorMsg('');
               }}
-              className={`flex-1 py-2 text-xs font-bold transition border-b-2 ${
+              className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
                 activeTab === 'signup'
-                  ? 'text-primary border-primary'
-                  : 'text-on-surface-variant hover:text-primary border-transparent'
+                  ? 'bg-primary text-white shadow-xs'
+                  : 'text-on-surface-variant hover:text-primary'
               }`}
             >
               Sign Up
@@ -102,7 +98,7 @@ export const LoginPage = () => {
           </div>
 
           {errorMsg && (
-            <div className="mb-4 p-2.5 bg-red-50 border border-red-200 text-error text-xs rounded-lg font-medium">
+            <div className="mb-4 p-3 bg-red-50/90 border border-red-200 text-error text-xs rounded-xl font-bold">
               {errorMsg}
             </div>
           )}
@@ -115,14 +111,14 @@ export const LoginPage = () => {
                   Full Name
                 </label>
                 <div className="relative">
-                  <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" />
+                  <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant" />
                   <input
                     type="text"
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Ramya / Vijayadarshini / Archana"
-                    className="w-full pl-9 pr-3 py-2.5 text-xs bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none transition"
+                    className="spatial-pill w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none transition"
                   />
                 </div>
               </div>
@@ -133,14 +129,14 @@ export const LoginPage = () => {
                 {activeTab === 'login' ? 'Work Email' : 'Email Address'}
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" />
+                <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant" />
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@teeszone.com"
-                  className="w-full pl-9 pr-3 py-2.5 text-xs bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none transition"
+                  className="spatial-pill w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none transition"
                 />
               </div>
             </div>
@@ -150,21 +146,21 @@ export const LoginPage = () => {
                 Password
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" />
+                <Lock className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant" />
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-9 pr-3 py-2.5 text-xs bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none transition"
+                  className="spatial-pill w-full pl-10 pr-3.5 py-2.5 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none transition"
                 />
               </div>
             </div>
 
             {activeTab === 'login' && (
               <div className="flex items-center justify-between text-xs pt-1">
-                <label className="flex items-center gap-2 text-on-surface-variant cursor-pointer select-none">
+                <label className="flex items-center gap-2 text-on-surface-variant cursor-pointer select-none font-medium">
                   <input
                     type="checkbox"
                     checked={rememberMe}
@@ -173,7 +169,7 @@ export const LoginPage = () => {
                   />
                   <span>Remember me</span>
                 </label>
-                <a href="#forgot" className="font-semibold text-primary hover:text-brand-pink transition">
+                <a href="#forgot" className="font-bold text-primary hover:text-brand-pink transition">
                   Forgot password?
                 </a>
               </div>
@@ -182,34 +178,34 @@ export const LoginPage = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-primary-container text-white py-3 rounded-xl text-xs font-bold hover:bg-primary transition shadow-xs flex items-center justify-center gap-2 mt-2 disabled:opacity-50"
+              className="w-full bg-gradient-to-r from-primary-container to-[#7a2034] text-white py-3 rounded-xl text-xs font-bold hover:from-primary hover:to-primary-container transition shadow-[0_4px_14px_rgba(90,23,37,0.3)] flex items-center justify-center gap-2 mt-2 disabled:opacity-50 active:scale-98"
             >
               <span>{isLoading ? 'Authenticating...' : (activeTab === 'login' ? 'Log In to Dashboard' : 'Create Account')}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </form>
 
-          {/* Quick Demo Access Divider */}
-          <div className="mt-6 pt-5 border-t border-outline-variant/50">
-            <p className="text-[11px] text-center font-bold uppercase tracking-wider text-on-surface-variant mb-2.5">
+          {/* Quick Demo Sign-In */}
+          <div className="mt-6 pt-5 border-t border-outline-variant/40">
+            <p className="text-[11px] text-center font-bold uppercase tracking-wider text-on-surface-variant mb-3">
               🚀 Fast Demo Sign-In
             </p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2.5">
               <button
                 type="button"
                 onClick={() => handleDemoLogin('ramya@teeszone.com')}
-                className="p-2 text-xs font-semibold bg-surface-container hover:bg-surface-container-high text-primary border border-outline-variant rounded-lg transition text-left"
+                className="spatial-pill p-2.5 rounded-xl hover:bg-white text-primary transition text-left group"
               >
-                <div className="font-bold">Ramya</div>
-                <div className="text-[10px] text-on-surface-variant">₹1.90L Actual</div>
+                <div className="font-extrabold text-xs group-hover:text-brand-pink transition">Ramya</div>
+                <div className="text-[10px] text-on-surface-variant">₹1.90L Actual Achieved</div>
               </button>
               <button
                 type="button"
                 onClick={() => handleDemoLogin('salesmanager@teeszone.com')}
-                className="p-2 text-xs font-semibold bg-surface-container hover:bg-surface-container-high text-primary border border-outline-variant rounded-lg transition text-left"
+                className="spatial-pill p-2.5 rounded-xl hover:bg-white text-primary transition text-left group"
               >
-                <div className="font-bold">Sales Lead</div>
-                <div className="text-[10px] text-on-surface-variant">Team View (₹9L)</div>
+                <div className="font-extrabold text-xs group-hover:text-brand-pink transition">Sales Lead</div>
+                <div className="text-[10px] text-on-surface-variant">Team Overview (₹9L)</div>
               </button>
             </div>
           </div>

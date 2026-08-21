@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSalesData } from '../context/SalesDataContext';
-import { X, UserPlus, Sparkles, Target, Banknote, Layers } from 'lucide-react';
+import { X, UserPlus } from 'lucide-react';
 
 export const AddRepModal = ({ onClose }) => {
   const { addOrUpdateRep, config } = useSalesData();
@@ -91,17 +91,17 @@ export const AddRepModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-200">
-      <div className="bg-white border border-outline-variant rounded-2xl max-w-xl w-full my-8 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-in fade-in duration-200">
+      <div className="spatial-card bg-white/95 max-w-xl w-full my-8 shadow-[0_24px_60px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="bg-[#3e0211] text-white p-5 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-brand-pink text-white">
+        <div className="bg-gradient-to-r from-[#3e0211] via-[#5a1725] to-[#3e0211] text-white p-5 flex items-center justify-between border-b border-pink-900/30">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-2xl bg-brand-pink text-white shadow-xs">
               <UserPlus className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold">Add Sales Representative</h2>
-              <p className="text-xs text-pink-200/80">
+              <h2 className="text-lg font-black">Add Sales Representative</h2>
+              <p className="text-xs text-pink-200/80 font-medium">
                 Simulate Google Form submission (Dynamically updates team total & charts)
               </p>
             </div>
@@ -128,7 +128,7 @@ export const AddRepModal = ({ onClose }) => {
                 placeholder="e.g. Siddharth"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 text-xs bg-surface-container border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
+                className="spatial-pill w-full px-3.5 py-2 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
               />
             </div>
 
@@ -142,7 +142,7 @@ export const AddRepModal = ({ onClose }) => {
                 placeholder="siddharth@teeszone.com"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 text-xs bg-surface-container border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
+                className="spatial-pill w-full px-3.5 py-2 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
               />
             </div>
           </div>
@@ -157,7 +157,7 @@ export const AddRepModal = ({ onClose }) => {
                 name="monthlyTarget"
                 value={formData.monthlyTarget}
                 onChange={handleChange}
-                className="w-full px-3 py-2 text-xs bg-surface-container border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
+                className="spatial-pill w-full px-3.5 py-2 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
               />
             </div>
 
@@ -172,7 +172,7 @@ export const AddRepModal = ({ onClose }) => {
                 placeholder="e.g. 175000"
                 value={formData.actualSales}
                 onChange={handleChange}
-                className="w-full px-3 py-2 text-xs bg-surface-container border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
+                className="spatial-pill w-full px-3.5 py-2 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
               />
             </div>
           </div>
@@ -189,7 +189,7 @@ export const AddRepModal = ({ onClose }) => {
                 placeholder="e.g. 15"
                 value={formData.activeLeadsCount}
                 onChange={handleChange}
-                className="w-full px-3 py-2 text-xs bg-surface-container border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
+                className="spatial-pill w-full px-3.5 py-2 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
               />
             </div>
 
@@ -204,7 +204,7 @@ export const AddRepModal = ({ onClose }) => {
                 placeholder="e.g. 240000"
                 value={formData.totalPipelineValue}
                 onChange={handleChange}
-                className="w-full px-3 py-2 text-xs bg-surface-container border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
+                className="spatial-pill w-full px-3.5 py-2 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
               />
             </div>
           </div>
@@ -219,7 +219,7 @@ export const AddRepModal = ({ onClose }) => {
               placeholder="e.g. 150000"
               value={formData.expectedRealisticConversion}
               onChange={handleChange}
-              className="w-full px-3 py-2 text-xs bg-surface-container border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
+              className="spatial-pill w-full px-3.5 py-2 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
             />
           </div>
 
@@ -233,7 +233,7 @@ export const AddRepModal = ({ onClose }) => {
               placeholder="e.g. Infosys Marathon Team (400 custom dri-fit tees)"
               value={formData.keyLeadClient}
               onChange={handleChange}
-              className="w-full px-3 py-2 text-xs bg-surface-container border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
+              className="spatial-pill w-full px-3.5 py-2 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none"
             />
           </div>
 
@@ -247,21 +247,21 @@ export const AddRepModal = ({ onClose }) => {
               placeholder="e.g. Following up on 2 corporate bulk orders; conducting client sample demos this week."
               value={formData.actionPlan}
               onChange={handleChange}
-              className="w-full px-3 py-2 text-xs bg-surface-container border border-outline-variant rounded-lg focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none resize-none"
+              className="spatial-pill w-full px-3.5 py-2 text-xs rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none resize-none"
             />
           </div>
 
-          <div className="pt-2 flex justify-end gap-3">
+          <div className="pt-3 flex justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-on-surface-variant hover:bg-surface-container transition"
+              className="px-4 py-2 rounded-xl text-xs font-bold text-on-surface-variant hover:bg-surface-container transition"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-5 py-2 rounded-xl text-xs font-bold bg-primary-container text-white hover:bg-primary transition shadow-xs"
+              className="px-6 py-2.5 rounded-xl text-xs font-black bg-primary-container text-white hover:bg-primary transition shadow-sm active:scale-95"
             >
               Save & Recalculate App
             </button>

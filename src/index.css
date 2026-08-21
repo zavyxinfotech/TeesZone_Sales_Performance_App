@@ -4,28 +4,90 @@
 
 @layer base {
   body {
-    background-color: #FBF9F8;
+    background-color: #F8F6F4;
     color: #1b1c1c;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
   }
 }
 
-.card-surface {
-  background-color: #FFFFFF;
-  border: 1px solid #E5DED4;
+/* Spatial UI Design System */
+.spatial-bg-ambient {
+  background: 
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(230, 0, 103, 0.05), transparent 70%),
+    radial-gradient(ellipse 50% 50% at 85% 20%, rgba(90, 23, 37, 0.04), transparent 70%),
+    radial-gradient(ellipse 70% 60% at 50% 90%, rgba(218, 124, 137, 0.06), transparent 70%),
+    #F8F6F4;
 }
 
-.card-surface-warm {
-  background-color: #F5EBDD;
-  border: 1px solid #E5DED4;
+/* Spatial Glass Surface */
+.spatial-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 10px 30px -5px rgba(62, 2, 17, 0.04),
+    0 4px 12px -2px rgba(62, 2, 17, 0.02),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95);
+  border-radius: 1.25rem;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spatial-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 20px 40px -10px rgba(230, 0, 103, 0.12),
+    0 8px 16px -4px rgba(62, 2, 17, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+/* Spatial Warm Glass Surface */
+.spatial-card-warm {
+  background: rgba(246, 238, 227, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(235, 225, 211, 0.9);
+  box-shadow: 
+    0 10px 30px -5px rgba(100, 94, 83, 0.05),
+    0 4px 12px -2px rgba(100, 94, 83, 0.02),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9);
+  border-radius: 1.25rem;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spatial-card-warm:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 20px 40px -10px rgba(100, 94, 83, 0.12),
+    0 8px 16px -4px rgba(100, 94, 83, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 1);
+}
+
+/* Spatial Header Glass Panel */
+.spatial-nav {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(229, 222, 212, 0.7);
+  box-shadow: 0 4px 20px -2px rgba(62, 2, 17, 0.03);
+}
+
+/* Spatial Glass Pills */
+.spatial-pill {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .data-table-header {
-  background-color: #F5EBDD;
+  background: rgba(245, 235, 221, 0.75);
 }
 
 .data-table-row {
-  border-bottom: 1px solid #E5DED4;
+  border-bottom: 1px solid rgba(229, 222, 212, 0.5);
 }
 
 /* Custom Scrollbar */
@@ -34,14 +96,14 @@
   height: 6px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #f1ede8;
+  background: rgba(241, 237, 232, 0.5);
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #867274;
+  background-color: #c8c6c5;
   border-radius: 4px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #5a1725;
+  background-color: #867274;
 }
 
 /* Pulse glow animation for Live badge */

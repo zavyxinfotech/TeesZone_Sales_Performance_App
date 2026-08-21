@@ -10,19 +10,19 @@ export const MonthEndForecastCard = () => {
   const gapOrSurplus = teamMetrics.projectedTotal - teamMetrics.totalTeamTarget;
 
   return (
-    <div className="card-surface-warm rounded-xl p-4 md:p-6 flex flex-col justify-between relative overflow-hidden shadow-sm border border-[#E5DED4]">
+    <div className="spatial-card-warm p-6 flex flex-col justify-between relative overflow-hidden h-full group">
       {/* Decorative background watermark */}
-      <div className="absolute -right-6 -bottom-6 text-outline-variant/15 pointer-events-none select-none">
-        <TrendingUp className="w-36 h-36" />
+      <div className="absolute -right-6 -bottom-6 text-outline-variant/15 pointer-events-none select-none group-hover:scale-105 transition-transform duration-500">
+        <TrendingUp className="w-40 h-40" />
       </div>
 
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-card-heading text-on-surface font-bold flex items-center gap-2">
+          <h3 className="text-card-heading text-on-surface font-black flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-primary" />
             <span>Month-End Forecast</span>
           </h3>
-          <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-white/80 text-secondary border border-outline-variant/30">
+          <span className="spatial-pill text-[10px] font-extrabold tracking-wider uppercase px-2.5 py-1 rounded-full text-secondary">
             August Goal
           </span>
         </div>
@@ -32,7 +32,7 @@ export const MonthEndForecastCard = () => {
             <div className="text-xs text-on-surface-variant font-medium mb-1">
               Current Achievement (Till Today)
             </div>
-            <div className="text-xl md:text-2xl font-bold text-on-surface">
+            <div className="text-xl sm:text-2xl font-black text-on-surface">
               {formatINR(teamMetrics.totalActualSales)}
             </div>
           </div>
@@ -43,29 +43,29 @@ export const MonthEndForecastCard = () => {
           </div>
 
           <div>
-            <div className="text-lg md:text-xl font-bold text-primary-container">
+            <div className="text-lg sm:text-xl font-extrabold text-primary-container">
               {formatINR(teamMetrics.totalRealisticConversion)}
             </div>
           </div>
 
-          <div className="pt-3 border-t border-outline-variant/40">
+          <div className="pt-4 border-t border-outline-variant/40">
             <div className="text-label-caps text-on-surface-variant font-bold uppercase tracking-wider mb-1.5">
               Projected Month-End Total
             </div>
-            <div className="flex flex-wrap items-baseline gap-2 mb-2">
-              <span className="text-2xl md:text-3xl font-extrabold text-on-surface">
+            <div className="flex flex-wrap items-baseline gap-2.5 mb-2">
+              <span className="text-2xl sm:text-3xl font-black text-on-surface tracking-tight">
                 {formatINR(teamMetrics.projectedTotal)}
               </span>
-              <span className={`text-xs font-bold px-2 py-0.5 rounded border ${
+              <span className={`text-xs font-black px-2.5 py-1 rounded-full border ${
                 isAchievable 
-                  ? 'bg-emerald-100/80 text-success border-emerald-300' 
-                  : 'bg-red-100/80 text-error border-red-300'
+                  ? 'bg-emerald-100/90 text-success border-emerald-300' 
+                  : 'bg-red-100/90 text-error border-red-300'
               }`}>
                 {teamMetrics.projectedPercentage}% of Target
               </span>
             </div>
 
-            <div className={`mt-2 flex items-center gap-1.5 text-xs font-semibold ${
+            <div className={`mt-2 flex items-center gap-2 text-xs font-bold ${
               isAchievable ? 'text-success' : 'text-error'
             }`}>
               {isAchievable ? (
