@@ -1,31 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 90" width="450" height="90">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80" width="400" height="80">
   <defs>
     <linearGradient id="burgundyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#7A1E32" />
-      <stop offset="50%" stop-color="#5A1424" />
-      <stop offset="100%" stop-color="#3D030F" />
+      <stop offset="50%" stop-color="#4A0A17" />
+      <stop offset="100%" stop-color="#360410" />
     </linearGradient>
   </defs>
   
   <!-- 3D Geometric T Emblem in Deep Burgundy -->
-  <g transform="translate(10, 10)">
+  <g transform="translate(8, 8)">
     <!-- Isometric Left Arm -->
-    <path d="M 35,6 L 10,20 L 10,34 L 25,26 L 25,56 L 36,63 L 36,24 L 47,17 Z" fill="#4A0A17" />
+    <path d="M 32,6 L 10,19 L 10,32 L 23,25 L 23,52 L 33,58 L 33,23 L 43,16 Z" fill="#4A0A17" />
     <!-- Isometric Right Arm -->
-    <path d="M 35,6 L 60,20 L 60,34 L 45,26 L 45,56 L 34,63 L 34,24 L 23,17 Z" fill="#6E1B2D" />
+    <path d="M 32,6 L 54,19 L 54,32 L 41,25 L 41,52 L 31,58 L 31,23 L 21,16 Z" fill="#6E1B2D" />
     <!-- Inner Highlight -->
-    <path d="M 35,12 L 50,21 L 40,28 L 40,54 L 35,57 L 30,54 L 30,28 L 20,21 Z" fill="none" stroke="#9A2D45" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" />
+    <path d="M 32,11 L 45,19 L 36,25 L 36,49 L 32,52 L 28,49 L 28,25 L 19,19 Z" fill="none" stroke="#9A2D45" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />
     <!-- Top Facet -->
-    <path d="M 35,5 L 10,19 L 22,26 L 35,18 L 48,26 L 60,19 Z" fill="#801C31" />
+    <path d="M 32,5 L 10,18 L 20,24 L 32,17 L 44,24 L 54,18 Z" fill="#7A1E32" />
   </g>
 
   <!-- Typography: TEESZONE in Deep Burgundy -->
-  <text x="85" y="48" font-family="'Inter', 'Segoe UI', -apple-system, sans-serif" font-size="44" font-weight="900" letter-spacing="3.5" fill="url(#burgundyGrad)">
+  <text x="76" y="44" font-family="'Inter', 'Segoe UI', -apple-system, sans-serif" font-size="40" font-weight="900" letter-spacing="2" fill="url(#burgundyGrad)">
     TEESZONE
   </text>
   
-  <!-- Tagline: elevate your style with custom tees in Deep Burgundy -->
-  <text x="87" y="70" font-family="'Inter', 'Segoe UI', -apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2.2" fill="#5A1424">
-    elevate your style with custom tees
+  <!-- Tagline: Strictly aligned to width of TEESZONE (x=77, textLength=238) -->
+  <text x="77" y="62" font-family="'Inter', 'Segoe UI', -apple-system, sans-serif" font-size="9.5" font-weight="800" textLength="238" lengthAdjust="spacing" fill="#5A1424">
+    ELEVATE YOUR STYLE WITH CUSTOM TEES
   </text>
 </svg>
