@@ -15,8 +15,7 @@ import {
   Users, 
   ChevronDown, 
   ChevronUp, 
-  Sparkles,
-  Target
+  Sparkles
 } from 'lucide-react';
 
 export const DashboardPage = () => {
@@ -27,107 +26,110 @@ export const DashboardPage = () => {
   const [showAgendaDetails, setShowAgendaDetails] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col selection:bg-brand-pink selection:text-white">
+    <div className="min-h-screen flex flex-col selection:bg-brand-pink selection:text-white w-full overflow-x-hidden">
       {/* Top Skeuomorphic Navbar */}
       <Navbar
         onOpenSyncConfig={() => setIsSyncModalOpen(true)}
         onOpenAddRep={() => setIsAddRepModalOpen(true)}
       />
 
-      {/* Main Full-Width Content Container */}
-      <main className="flex-1 w-full px-3.5 sm:px-6 lg:px-10 py-4 sm:py-6 space-y-4 sm:space-y-6">
-        
-        {/* Open Header Section (NO CARD DESIGN for Monthly Target) */}
-        <div className="w-full space-y-3 pt-1 sm:pt-2">
-          {/* Top Agenda Pill */}
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full skeuo-inset text-[10px] sm:text-xs font-black text-[#5A1424] uppercase tracking-wider">
-              <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#7A1E32]" />
-              <span>TODAY'S SALES PIPELINE REVIEW – {selectedMonth.toUpperCase()}</span>
+      {/* FULL-WIDTH DEEP BURGUNDY BANNER (Edge-to-Edge Banner Design - No Card Box) */}
+      <section className="w-full bg-gradient-to-r from-[#4A0A17] via-[#5A1424] to-[#360410] text-white shadow-[0_4px_20px_rgba(58,3,15,0.35)] border-b border-[#2C020A] px-3.5 sm:px-6 lg:px-10 py-4 sm:py-6">
+        <div className="w-full max-w-full space-y-3.5">
+          
+          {/* Top Agenda Pill & Toggle */}
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <div className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-black/25 text-[10px] sm:text-xs font-black text-pink-200 tracking-wider uppercase border border-white/10 shadow-xs">
+              <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-pink flex-shrink-0" />
+              <span className="truncate">TODAY'S PIPELINE REVIEW – {selectedMonth.toUpperCase()}</span>
             </div>
 
-            {/* Quick Toggle for Agenda */}
             <button
               onClick={() => setShowAgendaDetails(!showAgendaDetails)}
-              className="skeuo-btn px-3 py-1 rounded-xl text-[11px] sm:text-xs font-black text-primary flex items-center gap-1.5 cursor-pointer active:scale-95 ml-auto"
+              className="skeuo-btn px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-black text-[#4A0A17] flex items-center gap-1.5 cursor-pointer active:scale-95 ml-auto flex-shrink-0 shadow-sm"
             >
               <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-pink" />
-              <span>{showAgendaDetails ? 'Hide Agenda' : 'Review 8 Questions'}</span>
+              <span>{showAgendaDetails ? 'Hide Agenda' : 'Review 8 Qs'}</span>
               {showAgendaDetails ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
             </button>
           </div>
 
-          {/* Headline & Subtitle (Open, No Card Design) */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-3 sm:gap-4">
+          {/* Banner Heading & Debossed Quick Stats */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3.5">
             <div className="space-y-1">
-              <h1 className="text-xl sm:text-3xl lg:text-4xl font-black tracking-tight text-[#3E0211] leading-tight flex items-center gap-2">
+              <h1 className="text-lg sm:text-2xl lg:text-3xl font-black tracking-tight text-white flex items-center gap-2 drop-shadow-sm">
                 <span>🎯 Monthly Target: ₹3,00,000 per person</span>
               </h1>
-              <p className="text-xs sm:text-sm text-on-surface-variant font-medium max-w-3xl leading-relaxed">
+              <p className="text-[11px] sm:text-xs text-pink-100/80 max-w-3xl leading-relaxed font-medium">
                 Objective: ₹3L Target → Current Achievement → Available Pipeline → Conversion Plan → Month-End Target Achievement.
               </p>
             </div>
 
-            {/* Responsive Compact Stats Badges */}
-            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-              <div className="skeuo-card px-3 sm:px-4 py-2 rounded-xl flex items-center gap-3">
-                <div className="text-[9px] sm:text-[10px] uppercase font-bold text-on-surface-variant">Team Target:</div>
-                <div className="text-sm sm:text-lg font-black text-[#3E0211]">{formatINR(teamMetrics.totalTeamTarget)}</div>
+            {/* Inner Debossed Stats Well */}
+            <div className="bg-[#24030B] px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-2xl border border-white/10 shadow-[inset_2px_2px_6px_rgba(0,0,0,0.6)] flex items-center gap-4 sm:gap-6 self-start lg:self-auto">
+              <div>
+                <div className="text-[9px] sm:text-[10px] uppercase font-bold text-pink-200/70 tracking-wider">Team Target</div>
+                <div className="text-base sm:text-xl font-black text-white">{formatINR(teamMetrics.totalTeamTarget)}</div>
               </div>
-
-              <div className="skeuo-card px-3 sm:px-4 py-2 rounded-xl flex items-center gap-2">
-                <Users className="w-3.5 h-3.5 text-brand-pink" />
-                <div className="text-[9px] sm:text-[10px] uppercase font-bold text-on-surface-variant">Active:</div>
-                <div className="text-sm sm:text-lg font-black text-[#3E0211]">{reps.length} Reps</div>
+              <div className="h-8 w-px bg-white/15" />
+              <div>
+                <div className="text-[9px] sm:text-[10px] uppercase font-bold text-pink-200/70 tracking-wider">Active Team</div>
+                <div className="text-base sm:text-xl font-black text-white flex items-center gap-1">
+                  <Users className="w-3.5 h-3.5 text-brand-pink" />
+                  <span>{reps.length} Reps</span>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Expandable 8 Agenda Questions */}
           {showAgendaDetails && (
-            <div className="skeuo-inset p-3.5 sm:p-5 rounded-2xl mt-3 animate-in fade-in slide-in-from-top-2 duration-300 space-y-3">
-              <div className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-[#5A1424] flex items-center gap-2">
+            <div className="mt-3 pt-3 border-t border-white/15 animate-in fade-in slide-in-from-top-2 duration-300 space-y-2.5">
+              <div className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-pink-200 flex items-center gap-2">
                 <Sparkles className="w-3.5 h-3.5 text-brand-pink" />
                 <span>Mandated 8-Question Agenda for Individual Rep Review:</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 text-xs">
-                <div className="skeuo-card p-3 rounded-xl">
-                  <span className="font-black text-[#5A1424] block mb-0.5">1️⃣ Actual sales</span>
-                  <span className="text-on-surface-variant text-[11px]">Achieved till today</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-xs">
+                <div className="bg-[#24030B]/80 p-2.5 sm:p-3 rounded-xl border border-white/5 shadow-inner">
+                  <span className="font-black text-pink-200 block mb-0.5">1️⃣ Actual sales</span>
+                  <span className="text-pink-100/80 text-[11px]">Achieved till today</span>
                 </div>
-                <div className="skeuo-card p-3 rounded-xl">
-                  <span className="font-black text-[#5A1424] block mb-0.5">2️⃣ Balance amount</span>
-                  <span className="text-on-surface-variant text-[11px]">Required to reach ₹3L</span>
+                <div className="bg-[#24030B]/80 p-2.5 sm:p-3 rounded-xl border border-white/5 shadow-inner">
+                  <span className="font-black text-pink-200 block mb-0.5">2️⃣ Balance amount</span>
+                  <span className="text-pink-100/80 text-[11px]">Required to reach ₹3L</span>
                 </div>
-                <div className="skeuo-card p-3 rounded-xl">
-                  <span className="font-black text-[#5A1424] block mb-0.5">3️⃣ Active leads</span>
-                  <span className="text-on-surface-variant text-[11px]">Currently in pipeline</span>
+                <div className="bg-[#24030B]/80 p-2.5 sm:p-3 rounded-xl border border-white/5 shadow-inner">
+                  <span className="font-black text-pink-200 block mb-0.5">3️⃣ Active leads</span>
+                  <span className="text-pink-100/80 text-[11px]">Currently in pipeline</span>
                 </div>
-                <div className="skeuo-card p-3 rounded-xl">
-                  <span className="font-black text-[#5A1424] block mb-0.5">4️⃣ Expected order value</span>
-                  <span className="text-on-surface-variant text-[11px]">Lead-wise expected value</span>
+                <div className="bg-[#24030B]/80 p-2.5 sm:p-3 rounded-xl border border-white/5 shadow-inner">
+                  <span className="font-black text-pink-200 block mb-0.5">4️⃣ Expected order value</span>
+                  <span className="text-pink-100/80 text-[11px]">Lead-wise expected value</span>
                 </div>
-                <div className="skeuo-card p-3 rounded-xl">
-                  <span className="font-black text-[#5A1424] block mb-0.5">5️⃣ Lead status</span>
-                  <span className="text-on-surface-variant text-[11px]">Hot / Warm / New status</span>
+                <div className="bg-[#24030B]/80 p-2.5 sm:p-3 rounded-xl border border-white/5 shadow-inner">
+                  <span className="font-black text-pink-200 block mb-0.5">5️⃣ Lead status</span>
+                  <span className="text-pink-100/80 text-[11px]">Hot / Warm / New status</span>
                 </div>
-                <div className="skeuo-card p-3 rounded-xl">
-                  <span className="font-black text-[#5A1424] block mb-0.5">6️⃣ Realistic converts</span>
-                  <span className="text-on-surface-variant text-[11px]">High-conv. leads this month</span>
+                <div className="bg-[#24030B]/80 p-2.5 sm:p-3 rounded-xl border border-white/5 shadow-inner">
+                  <span className="font-black text-pink-200 block mb-0.5">6️⃣ Realistic converts</span>
+                  <span className="text-pink-100/80 text-[11px]">High-conv. leads this month</span>
                 </div>
-                <div className="skeuo-card p-3 rounded-xl">
-                  <span className="font-black text-[#5A1424] block mb-0.5">7️⃣ Action plan</span>
-                  <span className="text-on-surface-variant text-[11px]">Strategy before 31 August</span>
+                <div className="bg-[#24030B]/80 p-2.5 sm:p-3 rounded-xl border border-white/5 shadow-inner">
+                  <span className="font-black text-pink-200 block mb-0.5">7️⃣ Action plan</span>
+                  <span className="text-pink-100/80 text-[11px]">Strategy before 31 August</span>
                 </div>
-                <div className="skeuo-card p-3 rounded-xl">
-                  <span className="font-black text-[#5A1424] block mb-0.5">8️⃣ Pipeline gap</span>
-                  <span className="text-on-surface-variant text-[11px]">New leads needed if short</span>
+                <div className="bg-[#24030B]/80 p-2.5 sm:p-3 rounded-xl border border-white/5 shadow-inner">
+                  <span className="font-black text-pink-200 block mb-0.5">8️⃣ Pipeline gap</span>
+                  <span className="text-pink-100/80 text-[11px]">New leads needed if short</span>
                 </div>
               </div>
             </div>
           )}
         </div>
+      </section>
 
+      {/* Main Dashboard Content */}
+      <main className="flex-1 w-full px-3.5 sm:px-6 lg:px-10 py-4 sm:py-6 space-y-4 sm:space-y-6 max-w-full">
         {/* 4 Primary Skeuomorphic KPI Cards */}
         <KPIGrid />
 

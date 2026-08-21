@@ -8,7 +8,8 @@ import {
   UserPlus, 
   LogOut, 
   ExternalLink,
-  CheckCircle2
+  Menu,
+  X
 } from 'lucide-react';
 
 export const Navbar = ({ onOpenSyncConfig, onOpenAddRep }) => {
@@ -21,30 +22,31 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep }) => {
     config 
   } = useSalesData();
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   return (
-    <header className="skeuo-header sticky top-0 z-40 transition-all border-b border-[#D5C7B8]">
-      {/* Full-width Compact Responsive Bar */}
-      <div className="w-full px-3 sm:px-6 lg:px-10 py-2.5 sm:py-3">
+    <header className="skeuo-header sticky top-0 z-40 w-full transition-all border-b border-[#D5C7B8] overflow-hidden">
+      {/* Full-width Responsive Header Bar */}
+      <div className="w-full px-3 sm:px-6 lg:px-10 py-2.5 sm:py-3 max-w-full">
         <div className="w-full flex items-center justify-between gap-2">
           
-          {/* Logo Section - Deep Burgundy Vector Branding */}
-          <div className="flex items-center flex-shrink-0">
-            <TeeszoneLogo className="h-8 sm:h-10 md:h-11 w-auto" />
+          {/* Logo Section */}
+          <div className="flex items-center min-w-0">
+            <TeeszoneLogo className="h-7 sm:h-9 md:h-11 w-auto" />
           </div>
 
-          {/* Action Cluster - Always Stays in a Clean Single Line */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5 flex-nowrap">
+          {/* Desktop Right Actions (>= 768px) */}
+          <div className="hidden md:flex items-center gap-2.5 flex-nowrap flex-shrink-0">
             {/* Live Sync Status Indicator Pill */}
             <div 
               title={config.sheetCsvUrl ? (lastSyncTime ? `Live Google Sheet synced at ${lastSyncTime}` : 'Live Google Sheet Sync Active') : 'Live Auto-Sync'}
-              className={`skeuo-pill hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${
+              className={`skeuo-pill flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${
                 config.sheetCsvUrl 
                   ? (syncError ? 'text-error' : 'text-success') 
                   : 'text-[#6E1B2D]'
               }`}
             >
-              <span className={`w-2 h-2 rounded-full ${
+              <span className={`w-2 h-2 rounded-full flex-shrink-0 ${
                 config.sheetCsvUrl 
                   ? (syncError ? 'bg-error' : 'bg-success animate-pulse-dot') 
                   : 'bg-[#6E1B2D] animate-pulse-dot'
@@ -59,10 +61,10 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep }) => {
               onClick={() => syncWithGoogleSheet()}
               disabled={isSyncing}
               title="Refresh Google Sheet Data"
-              className="skeuo-btn p-2 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold text-[#4A0A17] flex items-center gap-1.5 cursor-pointer disabled:opacity-50 active:scale-95"
+              className="skeuo-btn px-3 py-1.5 rounded-xl text-xs font-bold text-[#4A0A17] flex items-center gap-1.5 cursor-pointer disabled:opacity-50 active:scale-95"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-[#7A1E32]' : ''}`} />
-              <span className="hidden sm:inline">Refresh</span>
+              <span>Refresh</span>
             </button>
 
             {/* Google Form / Sheet Link */}
@@ -72,7 +74,7 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Open Google Sheet / Form"
-                className="skeuo-btn p-2 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold text-[#6E1B2D] flex items-center gap-1.5 cursor-pointer active:scale-95"
+                className="skeuo-btn px-3 py-1.5 rounded-xl text-xs font-bold text-[#6E1B2D] flex items-center gap-1.5 cursor-pointer active:scale-95"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span className="hidden lg:inline">Google Sheet</span>
@@ -83,10 +85,10 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep }) => {
             <button
               onClick={onOpenAddRep}
               title="Add Sales Representative"
-              className="skeuo-btn-primary px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs font-black flex items-center gap-1.5 cursor-pointer active:scale-95 whitespace-nowrap"
+              className="skeuo-btn-primary px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-1.5 cursor-pointer active:scale-95 whitespace-nowrap"
             >
               <UserPlus className="w-3.5 h-3.5" />
-              <span className="hidden xs:inline sm:inline">+ Add Rep</span>
+              <span>+ Add Rep</span>
             </button>
 
             {/* Settings Button */}
@@ -102,13 +104,13 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep }) => {
             <div className="relative">
               <button
                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                className="skeuo-btn p-1.5 sm:p-1.5 sm:pl-2 sm:pr-3 rounded-full flex items-center gap-1.5 cursor-pointer active:scale-95"
+                className="skeuo-btn p-1.5 pl-2 pr-3 rounded-full flex items-center gap-1.5 cursor-pointer active:scale-95"
                 title="User Menu"
               >
-                <div className="w-6 h-6 rounded-full bg-gradient-to-b from-[#6E1B2D] to-[#470815] text-white flex items-center justify-center text-xs font-black shadow-xs">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-b from-[#6E1B2D] to-[#470815] text-white flex items-center justify-center text-xs font-black shadow-xs flex-shrink-0">
                   {user?.avatar || 'T'}
                 </div>
-                <span className="text-xs font-black text-on-surface hidden sm:inline truncate max-w-[80px]">
+                <span className="text-xs font-black text-on-surface truncate max-w-[80px]">
                   {user?.name || 'Lead'}
                 </span>
               </button>
@@ -143,7 +145,104 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep }) => {
               )}
             </div>
           </div>
+
+          {/* Mobile Right Controls (< 768px / 320px screens) */}
+          <div className="flex md:hidden items-center gap-1.5 flex-shrink-0">
+            {/* Quick Refresh Icon Button */}
+            <button
+              onClick={() => syncWithGoogleSheet()}
+              disabled={isSyncing}
+              title="Refresh Data"
+              className="skeuo-btn p-1.5 rounded-xl text-[#4A0A17] cursor-pointer active:scale-95"
+            >
+              <RefreshCw className={`w-4 h-4 ${isSyncing ? 'animate-spin text-brand-pink' : ''}`} />
+            </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileDrawerOpen(!mobileDrawerOpen)}
+              className="skeuo-btn p-1.5 rounded-xl text-primary cursor-pointer active:scale-95"
+              aria-label="Toggle navigation menu"
+            >
+              {mobileDrawerOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Dropdown Drawer (< 768px) */}
+        {mobileDrawerOpen && (
+          <div className="md:hidden mt-2.5 pt-2.5 border-t border-outline-variant/40 space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
+            {/* Live Sync Status */}
+            <div className="skeuo-pill p-2 rounded-xl flex items-center justify-between text-xs font-bold">
+              <span className="text-on-surface-variant font-medium text-[11px]">Sync:</span>
+              <span className="flex items-center gap-1 text-success text-[11px]">
+                <span className="w-2 h-2 rounded-full bg-success animate-pulse-dot" />
+                <span>{lastSyncTime ? `${lastSyncTime}` : 'Live Auto-Sync'}</span>
+              </span>
+            </div>
+
+            {/* Action Buttons in Mobile View */}
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => {
+                  setMobileDrawerOpen(false);
+                  onOpenAddRep();
+                }}
+                className="skeuo-btn-primary py-2 px-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5"
+              >
+                <UserPlus className="w-3.5 h-3.5" />
+                <span>+ Add Rep</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setMobileDrawerOpen(false);
+                  onOpenSyncConfig();
+                }}
+                className="skeuo-btn py-2 px-2.5 rounded-xl text-xs font-bold text-primary flex items-center justify-center gap-1.5"
+              >
+                <Settings className="w-3.5 h-3.5 text-[#5A1424]" />
+                <span>Settings</span>
+              </button>
+            </div>
+
+            {config.formUrl && (
+              <a
+                href={config.formUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="skeuo-btn w-full py-2 px-2.5 rounded-xl text-xs font-bold text-[#6E1B2D] flex items-center justify-center gap-1.5 text-center"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Open Google Sheet / Form</span>
+              </a>
+            )}
+
+            {/* Mobile User Profile Bar */}
+            <div className="skeuo-inset p-2 rounded-xl flex items-center justify-between">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-b from-[#6E1B2D] to-[#470815] text-white flex items-center justify-center text-xs font-black flex-shrink-0">
+                  {user?.avatar || 'T'}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-black text-on-surface truncate">{user?.name || 'Sales Lead'}</p>
+                  <p className="text-[10px] text-on-surface-variant truncate">{user?.email || 'manager@teeszone.com'}</p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  setMobileDrawerOpen(false);
+                  logout();
+                }}
+                className="p-1 rounded-lg bg-red-100 text-error hover:bg-red-200 transition text-[11px] font-bold flex items-center gap-1 flex-shrink-0"
+              >
+                <LogOut className="w-3 h-3" />
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
