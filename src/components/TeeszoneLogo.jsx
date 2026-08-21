@@ -2,7 +2,7 @@ import React from 'react';
 
 export const TeeszoneLogo = ({ className = "h-8 sm:h-10 md:h-11 w-auto", showTagline = true }) => {
   return (
-    <div className={`flex items-center gap-2 select-none ${className}`}>
+    <div className={`flex items-center gap-0.5 sm:gap-1 select-none ${className}`}>
       {/* Deep Burgundy 3D Emblem */}
       <img
         src="/teeszone_icon.png"
@@ -13,8 +13,8 @@ export const TeeszoneLogo = ({ className = "h-8 sm:h-10 md:h-11 w-auto", showTag
         }}
       />
 
-      {/* Typography: Perfectly Aligned within TEESZONE Width */}
-      <div className="flex flex-col justify-center max-w-fit">
+      {/* Typography Snug Next to Emblem */}
+      <div className="flex flex-col justify-center max-w-fit pl-0.5">
         <span className="text-lg sm:text-xl md:text-2xl font-black tracking-tight text-[#4A0A17] leading-none drop-shadow-2xs select-none">
           TEESZONE
         </span>
