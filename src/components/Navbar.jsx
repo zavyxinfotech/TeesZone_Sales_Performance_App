@@ -26,16 +26,16 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep, isMobileMenuOpen, setIs
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full skeuo-header shadow-[0_2px_10px_rgba(150,130,110,0.15)] border-b border-[#D5C7B8] transition-all">
       {/* Top Main Navigation Bar */}
-      <div className="w-full px-3 sm:px-6 lg:px-10 py-2.5 sm:py-3 max-w-full">
-        <div className="w-full flex items-center justify-between gap-2">
+      <div className="w-full px-3.5 sm:px-6 lg:px-10 py-2.5 sm:py-3 max-w-full">
+        <div className="w-full flex items-center justify-between gap-3">
           
-          {/* Logo Section */}
+          {/* Exact Logo from Attached Image - Clean, No Border */}
           <div className="flex items-center min-w-0">
-            <TeeszoneLogo className="h-7 sm:h-9 md:h-11 w-auto" />
+            <TeeszoneLogo className="h-7 sm:h-8 md:h-9 lg:h-10 w-auto" />
           </div>
 
-          {/* Desktop Action Bar (>= 768px) */}
-          <div className="hidden md:flex items-center gap-2.5 flex-nowrap flex-shrink-0">
+          {/* Desktop Action Bar (>= 1024px / Large Screens Only) */}
+          <div className="hidden lg:flex items-center gap-2.5 flex-nowrap flex-shrink-0">
             {/* Live Sync Status Indicator Pill */}
             <div 
               title={config.sheetCsvUrl ? (lastSyncTime ? `Live Google Sheet synced at ${lastSyncTime}` : 'Live Google Sheet Sync Active') : 'Live Auto-Sync'}
@@ -76,7 +76,7 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep, isMobileMenuOpen, setIs
                 className="skeuo-btn px-3 py-1.5 rounded-xl text-xs font-bold text-[#6E1B2D] flex items-center gap-1.5 cursor-pointer active:scale-95"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
-                <span className="hidden lg:inline">Google Sheet</span>
+                <span>Google Sheet</span>
               </a>
             )}
 
@@ -145,22 +145,32 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep, isMobileMenuOpen, setIs
             </div>
           </div>
 
-          {/* Mobile Right Controls (< 768px) */}
-          <div className="flex md:hidden items-center gap-1.5 flex-shrink-0">
+          {/* Mobile & Tablet Controls (< 1024px: Mobile + Tablet) */}
+          <div className="flex lg:hidden items-center gap-2 flex-shrink-0">
             {/* Quick Refresh Icon Button */}
             <button
               onClick={() => syncWithGoogleSheet()}
               disabled={isSyncing}
               title="Refresh Data"
-              className="skeuo-btn p-1.5 rounded-xl text-[#4A0A17] cursor-pointer active:scale-95"
+              className="skeuo-btn p-2 rounded-xl text-[#4A0A17] cursor-pointer active:scale-95"
             >
               <RefreshCw className={`w-4 h-4 ${isSyncing ? 'animate-spin text-brand-pink' : ''}`} />
             </button>
 
-            {/* Hamburger Toggle Button */}
+            {/* Quick Add Rep Button for Tablets */}
+            <button
+              onClick={onOpenAddRep}
+              title="Add Sales Rep"
+              className="skeuo-btn-primary hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-black cursor-pointer active:scale-95"
+            >
+              <UserPlus className="w-3.5 h-3.5" />
+              <span>+ Rep</span>
+            </button>
+
+            {/* Hamburger Toggle Button (Active on Mobile AND Tablet Screens) */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="skeuo-btn p-1.5 rounded-xl text-primary cursor-pointer active:scale-95"
+              className="skeuo-btn p-2 rounded-xl text-primary cursor-pointer active:scale-95 flex items-center gap-1.5"
               aria-label="Toggle navigation menu"
             >
               {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -168,29 +178,29 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep, isMobileMenuOpen, setIs
           </div>
         </div>
 
-        {/* Mobile Dropdown Liquid Glass UI Panel (< 768px) */}
+        {/* Liquid Glass UI Menu Drawer for Mobile & Tablet (< 1024px) */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-2 p-3 rounded-2xl bg-white/75 backdrop-blur-xl border border-white/60 shadow-[0_12px_32px_rgba(58,3,15,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-2.5 animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="lg:hidden mt-2.5 p-3.5 sm:p-4 rounded-2xl bg-white/80 backdrop-blur-xl border border-white/60 shadow-[0_12px_32px_rgba(58,3,15,0.18),inset_0_1px_1px_rgba(255,255,255,0.9)] space-y-3 animate-in fade-in slide-in-from-top-2 duration-300 max-w-full">
             {/* Live Sync Status */}
-            <div className="skeuo-pill p-2 rounded-xl flex items-center justify-between text-xs font-bold">
-              <span className="text-on-surface-variant font-medium text-[11px]">Sync Status:</span>
-              <span className="flex items-center gap-1 text-success text-[11px]">
+            <div className="skeuo-pill p-2.5 rounded-xl flex items-center justify-between text-xs font-bold">
+              <span className="text-on-surface-variant font-medium text-xs">Google Sheet Live Sync:</span>
+              <span className="flex items-center gap-1.5 text-success text-xs font-black">
                 <span className="w-2 h-2 rounded-full bg-success animate-pulse-dot" />
                 <span>{lastSyncTime ? `Live (${lastSyncTime})` : 'Live Auto-Sync'}</span>
               </span>
             </div>
 
-            {/* Action Buttons in Mobile View */}
-            <div className="grid grid-cols-2 gap-2">
+            {/* Action Buttons in Mobile / Tablet Drawer */}
+            <div className="grid grid-cols-2 gap-2.5">
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   onOpenAddRep();
                 }}
-                className="skeuo-btn-primary py-2 px-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 active:scale-95"
+                className="skeuo-btn-primary py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 active:scale-95"
               >
-                <UserPlus className="w-3.5 h-3.5" />
-                <span>+ Add Rep</span>
+                <UserPlus className="w-4 h-4" />
+                <span>+ Add Sales Rep</span>
               </button>
 
               <button
@@ -198,10 +208,10 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep, isMobileMenuOpen, setIs
                   setIsMobileMenuOpen(false);
                   onOpenSyncConfig();
                 }}
-                className="skeuo-btn py-2 px-2.5 rounded-xl text-xs font-bold text-primary flex items-center justify-center gap-1.5 active:scale-95"
+                className="skeuo-btn py-2.5 px-3 rounded-xl text-xs font-bold text-primary flex items-center justify-center gap-1.5 active:scale-95"
               >
-                <Settings className="w-3.5 h-3.5 text-[#5A1424]" />
-                <span>Settings</span>
+                <Settings className="w-4 h-4 text-[#5A1424]" />
+                <span>Sheet Settings</span>
               </button>
             </div>
 
@@ -210,16 +220,16 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep, isMobileMenuOpen, setIs
                 href={config.formUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="skeuo-btn w-full py-2 px-2.5 rounded-xl text-xs font-bold text-[#6E1B2D] flex items-center justify-center gap-1.5 text-center active:scale-95"
+                className="skeuo-btn w-full py-2.5 px-3 rounded-xl text-xs font-bold text-[#6E1B2D] flex items-center justify-center gap-2 text-center active:scale-95"
               >
-                <ExternalLink className="w-3.5 h-3.5" />
+                <ExternalLink className="w-4 h-4" />
                 <span>Open Google Sheet / Form</span>
               </a>
             )}
 
-            {/* Mobile User Profile Bar */}
-            <div className="skeuo-inset p-2 rounded-xl flex items-center justify-between">
-              <div className="flex items-center gap-2 min-w-0">
+            {/* User Profile Bar */}
+            <div className="skeuo-inset p-2.5 rounded-xl flex items-center justify-between">
+              <div className="flex items-center gap-2.5 min-w-0">
                 <div className="w-7 h-7 rounded-full bg-gradient-to-b from-[#6E1B2D] to-[#470815] text-white flex items-center justify-center text-xs font-black flex-shrink-0">
                   {user?.avatar || 'T'}
                 </div>
@@ -234,9 +244,9 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep, isMobileMenuOpen, setIs
                   setIsMobileMenuOpen(false);
                   logout();
                 }}
-                className="p-1.5 rounded-lg bg-red-100 text-error hover:bg-red-200 transition text-[11px] font-bold flex items-center gap-1 flex-shrink-0"
+                className="p-1.5 px-2 rounded-lg bg-red-100 text-error hover:bg-red-200 transition text-xs font-bold flex items-center gap-1 flex-shrink-0 active:scale-95"
               >
-                <LogOut className="w-3 h-3" />
+                <LogOut className="w-3.5 h-3.5" />
                 <span>Sign Out</span>
               </button>
             </div>
