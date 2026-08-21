@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { TeeszoneLogo } from '../components/TeeszoneLogo';
 import { ArrowRight, Mail, Lock, User } from 'lucide-react';
 
 export const LoginPage = () => {
@@ -38,24 +39,17 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="text-on-surface min-h-screen flex items-center justify-center p-4 md:p-8 selection:bg-brand-pink selection:text-white">
+    <div className="text-on-surface min-h-screen flex items-center justify-center p-3.5 sm:p-6 md:p-8 selection:bg-brand-pink selection:text-white">
       <div className="w-full max-w-md">
-        {/* Brand Logo - Pure logo without border or frame */}
+        {/* Brand Logo - Deep Burgundy Logo without borders */}
         <div className="flex justify-center mb-6">
-          <img
-            src="/teeszone_logo.png"
-            alt="TEESZONE"
-            className="h-12 md:h-14 w-auto object-contain select-none"
-            onError={(e) => {
-              e.target.style.display = 'none';
-            }}
-          />
+          <TeeszoneLogo className="h-12 sm:h-14 w-auto" />
         </div>
 
         {/* Skeuomorphic Auth Card */}
-        <div className="skeuo-card p-6 md:p-8">
+        <div className="skeuo-card p-5 sm:p-8">
           <div className="text-center mb-6">
-            <h1 className="text-2xl font-black text-primary drop-shadow-xs">
+            <h1 className="text-xl sm:text-2xl font-black text-primary drop-shadow-xs">
               {activeTab === 'login' ? 'Welcome Back' : 'Create Account'}
             </h1>
             <p className="text-xs text-on-surface-variant mt-1 font-bold">
@@ -190,14 +184,14 @@ export const LoginPage = () => {
             <p className="text-[11px] text-center font-black uppercase tracking-wider text-on-surface-variant mb-3">
               🚀 Fast Demo Sign-In
             </p>
-            <div className="grid grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => handleDemoLogin('ramya@teeszone.com')}
                 className="skeuo-btn p-2.5 rounded-xl text-primary transition text-left cursor-pointer group"
               >
                 <div className="font-black text-xs group-hover:text-brand-pink transition">Ramya</div>
-                <div className="text-[10px] text-on-surface-variant font-bold">₹1.90L Actual Achieved</div>
+                <div className="text-[10px] text-on-surface-variant font-bold">₹1.90L Actual</div>
               </button>
               <button
                 type="button"
@@ -205,7 +199,7 @@ export const LoginPage = () => {
                 className="skeuo-btn p-2.5 rounded-xl text-primary transition text-left cursor-pointer group"
               >
                 <div className="font-black text-xs group-hover:text-brand-pink transition">Sales Lead</div>
-                <div className="text-[10px] text-on-surface-variant font-bold">Team Overview (₹9L)</div>
+                <div className="text-[10px] text-on-surface-variant font-bold">Team (₹11L)</div>
               </button>
             </div>
           </div>
