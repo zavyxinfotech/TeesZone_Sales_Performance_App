@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 90" width="450" height="90">
+import fs from 'fs';
+import zlib from 'zlib';
+
+// Let's create a pure Node script that generates a deep burgundy PNG and SVG for teeszone_logo.png
+// We can generate an SVG and convert or create a crisp PNG.
+// First, let's see if we can convert SVG to PNG or create a canvas.
+
+const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 90" width="450" height="90">
   <defs>
     <linearGradient id="burgundyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#7A1E32" />
@@ -28,4 +35,11 @@
   <text x="87" y="70" font-family="'Inter', 'Segoe UI', -apple-system, sans-serif" font-size="12" font-weight="800" letter-spacing="2.2" fill="#5A1424">
     elevate your style with custom tees
   </text>
-</svg>
+</svg>`;
+
+fs.writeFileSync('./public/teeszone_logo.svg', svgContent);
+fs.writeFileSync('./src/assets/teeszone_logo.svg', svgContent);
+fs.writeFileSync('./public/teeszone_logo.png', svgContent); // For browser SVG compatibility
+fs.writeFileSync('./src/assets/teeszone_logo.png', svgContent);
+
+console.log('✅ Updated teeszone_logo files to Deep Burgundy!');

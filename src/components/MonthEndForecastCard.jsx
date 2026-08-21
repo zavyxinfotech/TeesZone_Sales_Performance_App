@@ -10,53 +10,53 @@ export const MonthEndForecastCard = () => {
   const gapOrSurplus = teamMetrics.projectedTotal - teamMetrics.totalTeamTarget;
 
   return (
-    <div className="skeuo-card-warm p-6 flex flex-col justify-between relative overflow-hidden h-full group">
+    <div className="skeuo-card-warm p-4 sm:p-6 flex flex-col justify-between relative overflow-hidden h-full group">
       {/* Decorative background watermark */}
       <div className="absolute -right-6 -bottom-6 text-[#96826E]/15 pointer-events-none select-none">
-        <TrendingUp className="w-40 h-40" />
+        <TrendingUp className="w-32 sm:w-40 h-32 sm:h-40" />
       </div>
 
       <div className="relative z-10">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-card-heading text-on-surface font-black flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-primary" />
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
+          <h3 className="text-sm sm:text-card-heading text-on-surface font-black flex items-center gap-2">
+            <TrendingUp className="w-4 sm:w-5 h-4 sm:h-5 text-primary" />
             <span>Month-End Forecast</span>
           </h3>
-          <span className="skeuo-pill text-[10px] font-black tracking-wider uppercase px-3 py-1 rounded-full text-secondary">
+          <span className="skeuo-pill text-[9px] sm:text-[10px] font-black tracking-wider uppercase px-2.5 sm:px-3 py-1 rounded-full text-secondary">
             August Goal
           </span>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           <div>
-            <div className="text-xs text-on-surface-variant font-bold mb-1">
+            <div className="text-[11px] sm:text-xs text-on-surface-variant font-bold mb-0.5">
               Current Achievement (Till Today)
             </div>
-            <div className="text-xl sm:text-2xl font-black text-on-surface drop-shadow-2xs">
+            <div className="text-lg sm:text-2xl font-black text-on-surface drop-shadow-2xs">
               {formatINR(teamMetrics.totalActualSales)}
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-outline text-xs font-black pl-2">
-            <Plus className="w-4 h-4 text-[#5A1424]" />
+          <div className="flex items-center gap-1.5 text-outline text-[11px] sm:text-xs font-black pl-1">
+            <Plus className="w-3.5 h-3.5 text-[#5A1424]" />
             <span>Expected Realistic Pipeline Conversion</span>
           </div>
 
           <div>
-            <div className="text-lg sm:text-xl font-black text-[#5A1424] drop-shadow-2xs">
+            <div className="text-base sm:text-xl font-black text-[#5A1424] drop-shadow-2xs">
               {formatINR(teamMetrics.totalRealisticConversion)}
             </div>
           </div>
 
-          <div className="pt-4 border-t border-outline-variant/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
-            <div className="text-label-caps text-on-surface-variant font-black uppercase tracking-wider mb-1.5">
+          <div className="pt-3 sm:pt-4 border-t border-outline-variant/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+            <div className="text-[10px] sm:text-label-caps text-on-surface-variant font-black uppercase tracking-wider mb-1">
               Projected Month-End Total
             </div>
-            <div className="flex flex-wrap items-baseline gap-2.5 mb-2">
-              <span className="text-2xl sm:text-3xl font-black text-on-surface tracking-tight drop-shadow-xs">
+            <div className="flex flex-wrap items-baseline gap-2 mb-1.5">
+              <span className="text-xl sm:text-3xl font-black text-on-surface tracking-tight drop-shadow-xs">
                 {formatINR(teamMetrics.projectedTotal)}
               </span>
-              <span className={`text-xs font-black px-3 py-1 rounded-full border shadow-2xs ${
+              <span className={`text-[10px] sm:text-xs font-black px-2.5 py-0.5 sm:py-1 rounded-full border shadow-2xs ${
                 isAchievable 
                   ? 'bg-emerald-100 text-success border-emerald-300' 
                   : 'bg-red-100 text-error border-red-300'
@@ -65,18 +65,18 @@ export const MonthEndForecastCard = () => {
               </span>
             </div>
 
-            <div className={`mt-2 flex items-center gap-2 text-xs font-black ${
+            <div className={`mt-1.5 flex items-center gap-1.5 text-[11px] sm:text-xs font-black ${
               isAchievable ? 'text-success' : 'text-error'
             }`}>
               {isAchievable ? (
                 <>
-                  <CheckCircle className="w-4 h-4 flex-shrink-0" />
-                  <span>Target achievable with current pipeline ({formatINR(gapOrSurplus, true)} buffer)</span>
+                  <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Target achievable ({formatINR(gapOrSurplus, true)} buffer)</span>
                 </>
               ) : (
                 <>
-                  <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                  <span>Gap of {formatINR(Math.abs(gapOrSurplus))} to reach ₹{formatINR(teamMetrics.totalTeamTarget, true)}</span>
+                  <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+                  <span>Gap of {formatINR(Math.abs(gapOrSurplus))} to reach target</span>
                 </>
               )}
             </div>

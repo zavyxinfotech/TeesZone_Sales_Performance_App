@@ -8,8 +8,7 @@ import {
   UserPlus, 
   LogOut, 
   ExternalLink,
-  Menu,
-  X
+  CheckCircle2
 } from 'lucide-react';
 
 export const Navbar = ({ onOpenSyncConfig, onOpenAddRep }) => {
@@ -22,92 +21,95 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep }) => {
     config 
   } = useSalesData();
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="skeuo-header sticky top-0 z-40 transition-all">
-      {/* Full-width Skeuomorphic Top Bar */}
-      <div className="w-full px-3.5 sm:px-6 lg:px-10 py-3">
-        <div className="w-full flex items-center justify-between gap-2 sm:gap-4">
+    <header className="skeuo-header sticky top-0 z-40 transition-all border-b border-[#D5C7B8]">
+      {/* Full-width Compact Responsive Bar */}
+      <div className="w-full px-3 sm:px-6 lg:px-10 py-2.5 sm:py-3">
+        <div className="w-full flex items-center justify-between gap-2">
           
-          {/* Deep Burgundy Logo - Clean, No Border, Fully Responsive */}
-          <div className="flex items-center">
-            <TeeszoneLogo className="h-9 sm:h-11 md:h-12 w-auto" />
+          {/* Logo Section - Deep Burgundy Vector Branding */}
+          <div className="flex items-center flex-shrink-0">
+            <TeeszoneLogo className="h-8 sm:h-10 md:h-11 w-auto" />
           </div>
 
-          {/* Desktop Right Action Controls */}
-          <div className="hidden lg:flex items-center gap-3 flex-wrap justify-end">
-            {/* Live Sync Status Pill */}
-            <div className={`skeuo-pill flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold ${
-              config.sheetCsvUrl 
-                ? (syncError ? 'text-error' : 'text-success') 
-                : 'text-[#6E1B2D]'
-            }`}>
-              <span className={`w-2.5 h-2.5 rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.3)] ${
+          {/* Action Cluster - Always Stays in a Clean Single Line */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 flex-nowrap">
+            {/* Live Sync Status Indicator Pill */}
+            <div 
+              title={config.sheetCsvUrl ? (lastSyncTime ? `Live Google Sheet synced at ${lastSyncTime}` : 'Live Google Sheet Sync Active') : 'Live Auto-Sync'}
+              className={`skeuo-pill hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold ${
+                config.sheetCsvUrl 
+                  ? (syncError ? 'text-error' : 'text-success') 
+                  : 'text-[#6E1B2D]'
+              }`}
+            >
+              <span className={`w-2 h-2 rounded-full ${
                 config.sheetCsvUrl 
                   ? (syncError ? 'bg-error' : 'bg-success animate-pulse-dot') 
                   : 'bg-[#6E1B2D] animate-pulse-dot'
               }`} />
-              <span className="tracking-tight">
-                {config.sheetCsvUrl 
-                  ? (isSyncing ? 'Syncing...' : (syncError ? 'Sync Error' : `Live Sheets Sync ${lastSyncTime ? `(${lastSyncTime})` : ''}`)) 
-                  : 'Live Pipeline Auto-Sync'}
+              <span className="truncate max-w-[170px]">
+                {isSyncing ? 'Syncing...' : (syncError ? 'Sync Error' : `Live Sheet (${lastSyncTime || 'Active'})`)}
               </span>
             </div>
 
-            {/* Refresh Button */}
+            {/* Refresh Data Button */}
             <button
               onClick={() => syncWithGoogleSheet()}
               disabled={isSyncing}
               title="Refresh Google Sheet Data"
-              className="skeuo-btn flex items-center gap-2 px-3.5 py-1.5 text-xs font-bold text-primary rounded-xl cursor-pointer disabled:opacity-50"
+              className="skeuo-btn p-2 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold text-[#4A0A17] flex items-center gap-1.5 cursor-pointer disabled:opacity-50 active:scale-95"
             >
-              <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-[#6E1B2D]' : ''}`} />
-              <span>Refresh Data</span>
+              <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-[#7A1E32]' : ''}`} />
+              <span className="hidden sm:inline">Refresh</span>
             </button>
 
-            {/* Google Form Link */}
+            {/* Google Form / Sheet Link */}
             {config.formUrl && (
               <a
                 href={config.formUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="skeuo-btn flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold text-[#6E1B2D] rounded-xl cursor-pointer"
+                title="Open Google Sheet / Form"
+                className="skeuo-btn p-2 sm:px-3 sm:py-1.5 rounded-xl text-xs font-bold text-[#6E1B2D] flex items-center gap-1.5 cursor-pointer active:scale-95"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
-                <span>Open Google Sheet / Form</span>
+                <span className="hidden lg:inline">Google Sheet</span>
               </a>
             )}
 
             {/* Add Sales Rep Button */}
             <button
               onClick={onOpenAddRep}
-              className="skeuo-btn-primary flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-black cursor-pointer"
+              title="Add Sales Representative"
+              className="skeuo-btn-primary px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs font-black flex items-center gap-1.5 cursor-pointer active:scale-95 whitespace-nowrap"
             >
               <UserPlus className="w-3.5 h-3.5" />
-              <span>+ Add Sales Rep</span>
+              <span className="hidden xs:inline sm:inline">+ Add Rep</span>
             </button>
 
-            {/* Sync Config Settings Button */}
+            {/* Settings Button */}
             <button
               onClick={onOpenSyncConfig}
-              title="Google Sheets & Forms Configuration"
-              className="skeuo-btn p-2 rounded-xl text-on-surface-variant hover:text-primary cursor-pointer"
+              title="Google Sheet Settings"
+              className="skeuo-btn p-2 rounded-xl text-on-surface-variant hover:text-primary cursor-pointer active:scale-95"
             >
               <Settings className="w-4 h-4" />
             </button>
 
-            {/* User Profile */}
+            {/* User Profile Avatar / Logout */}
             <div className="relative">
               <button
                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                className="skeuo-btn flex items-center gap-2 p-1.5 pl-2 pr-3 rounded-full cursor-pointer"
+                className="skeuo-btn p-1.5 sm:p-1.5 sm:pl-2 sm:pr-3 rounded-full flex items-center gap-1.5 cursor-pointer active:scale-95"
+                title="User Menu"
               >
-                <div className="w-6 h-6 rounded-full bg-gradient-to-b from-[#6E1B2D] to-[#470815] text-white flex items-center justify-center text-xs font-black shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_2px_4px_rgba(0,0,0,0.3)]">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-b from-[#6E1B2D] to-[#470815] text-white flex items-center justify-center text-xs font-black shadow-xs">
                   {user?.avatar || 'T'}
                 </div>
-                <span className="text-xs font-black text-on-surface truncate max-w-[110px]">
-                  {user?.name || 'Sales Lead'}
+                <span className="text-xs font-black text-on-surface hidden sm:inline truncate max-w-[80px]">
+                  {user?.name || 'Lead'}
                 </span>
               </button>
 
@@ -125,7 +127,7 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep }) => {
                     className="w-full text-left px-3 py-2 text-xs font-bold text-on-surface hover:bg-surface-container rounded-lg flex items-center gap-2 transition mt-1"
                   >
                     <Settings className="w-3.5 h-3.5 text-on-surface-variant" />
-                    <span>Sheet & Form Settings</span>
+                    <span>Sheet Settings</span>
                   </button>
                   <button
                     onClick={() => {
@@ -141,113 +143,7 @@ export const Navbar = ({ onOpenSyncConfig, onOpenAddRep }) => {
               )}
             </div>
           </div>
-
-          {/* Mobile Right Controls (< 1024px) */}
-          <div className="flex lg:hidden items-center gap-2">
-            {/* Quick Refresh Icon */}
-            <button
-              onClick={() => syncWithGoogleSheet()}
-              disabled={isSyncing}
-              title="Refresh Data"
-              className="skeuo-btn p-2 rounded-xl text-[#5A1424] cursor-pointer active:scale-95"
-            >
-              <RefreshCw className={`w-4 h-4 ${isSyncing ? 'animate-spin text-brand-pink' : ''}`} />
-            </button>
-
-            {/* Add Rep Quick Icon Button */}
-            <button
-              onClick={onOpenAddRep}
-              className="skeuo-btn-primary p-2 rounded-xl text-white cursor-pointer active:scale-95"
-              title="Add Sales Rep"
-            >
-              <UserPlus className="w-4 h-4" />
-            </button>
-
-            {/* Mobile Menu Toggle Button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="skeuo-btn p-2 rounded-xl text-primary cursor-pointer active:scale-95"
-              aria-label="Toggle navigation menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
         </div>
-
-        {/* Mobile Dropdown Drawer */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden mt-3 pt-3 border-t border-outline-variant/40 space-y-2.5 animate-in fade-in slide-in-from-top-2 duration-200">
-            {/* Live Sync Status */}
-            <div className="skeuo-pill p-2.5 rounded-xl flex items-center justify-between text-xs font-bold">
-              <span className="text-on-surface-variant font-medium">Google Sheet Sync:</span>
-              <span className="flex items-center gap-1.5 text-success">
-                <span className="w-2 h-2 rounded-full bg-success animate-pulse-dot" />
-                <span>{lastSyncTime ? `Synced at ${lastSyncTime}` : 'Active Live Sync'}</span>
-              </span>
-            </div>
-
-            {/* Action Buttons in Mobile View */}
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenAddRep();
-                }}
-                className="skeuo-btn-primary py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5"
-              >
-                <UserPlus className="w-3.5 h-3.5" />
-                <span>+ Add Rep</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenSyncConfig();
-                }}
-                className="skeuo-btn py-2.5 px-3 rounded-xl text-xs font-bold text-primary flex items-center justify-center gap-1.5"
-              >
-                <Settings className="w-3.5 h-3.5 text-[#5A1424]" />
-                <span>Sheet Settings</span>
-              </button>
-            </div>
-
-            {config.formUrl && (
-              <a
-                href={config.formUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="skeuo-btn w-full py-2.5 px-3 rounded-xl text-xs font-bold text-[#6E1B2D] flex items-center justify-center gap-2 text-center"
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-                <span>Open Google Sheet / Form</span>
-              </a>
-            )}
-
-            {/* Mobile User Profile Bar */}
-            <div className="skeuo-inset p-2.5 rounded-xl flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-gradient-to-b from-[#6E1B2D] to-[#470815] text-white flex items-center justify-center text-xs font-black">
-                  {user?.avatar || 'T'}
-                </div>
-                <div>
-                  <p className="text-xs font-black text-on-surface">{user?.name || 'Sales Lead'}</p>
-                  <p className="text-[10px] text-on-surface-variant">{user?.email || 'manager@teeszone.com'}</p>
-                </div>
-              </div>
-
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  logout();
-                }}
-                className="p-1.5 rounded-lg bg-red-100 text-error hover:bg-red-200 transition text-xs font-bold flex items-center gap-1"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-                <span>Sign Out</span>
-              </button>
-            </div>
-          </div>
-        )}
       </div>
     </header>
   );

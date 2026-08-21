@@ -18,23 +18,23 @@ export const PerformanceChart = () => {
   const teamProjectedPct = Math.min(100, Math.round((teamMetrics.projectedTotal / maxVal) * 100));
 
   return (
-    <div className="skeuo-card p-6 flex flex-col justify-between h-full">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+    <div className="skeuo-card p-4 sm:p-6 flex flex-col justify-between h-full">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-4 sm:mb-6">
         <div>
-          <h3 className="text-card-heading text-on-surface font-black flex items-center gap-2">
-            <BarChart3 className="w-5 h-5 text-brand-pink" />
+          <h3 className="text-sm sm:text-card-heading text-on-surface font-black flex items-center gap-2">
+            <BarChart3 className="w-4 sm:w-5 h-4 sm:h-5 text-brand-pink" />
             <span>Target vs Actual Performance</span>
           </h3>
-          <p className="text-xs text-on-surface-variant font-medium mt-0.5">
+          <p className="text-[10px] sm:text-xs text-on-surface-variant font-medium mt-0.5">
             Tactile Comparison • Target vs Actual vs Projected
           </p>
         </div>
 
-        {/* View Toggle */}
-        <div className="skeuo-inset p-1 flex items-center rounded-xl text-xs font-black">
+        {/* View Toggle - Compact and Responsive */}
+        <div className="skeuo-inset p-0.5 sm:p-1 flex items-center rounded-xl text-[10px] sm:text-xs font-black self-start sm:self-auto">
           <button
             onClick={() => setViewMode('team')}
-            className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
               viewMode === 'team'
                 ? 'skeuo-btn-primary shadow-xs'
                 : 'text-on-surface-variant hover:text-primary'
@@ -44,22 +44,22 @@ export const PerformanceChart = () => {
           </button>
           <button
             onClick={() => setViewMode('reps')}
-            className={`px-3.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+            className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
               viewMode === 'reps'
                 ? 'skeuo-btn-primary shadow-xs'
                 : 'text-on-surface-variant hover:text-primary'
             }`}
           >
-            Rep Breakdown ({reps.length})
+            Reps ({reps.length})
           </button>
         </div>
       </div>
 
       {viewMode === 'team' ? (
         /* Team Aggregate Skeuomorphic Bar Visualizer */
-        <div className="flex-1 flex flex-col justify-end relative mt-2 min-h-[240px] skeuo-inset p-4 rounded-2xl">
+        <div className="flex-1 flex flex-col justify-end relative mt-2 min-h-[200px] sm:min-h-[240px] skeuo-inset p-3 sm:p-4 rounded-2xl">
           {/* Y Axis Labels */}
-          <div className="absolute left-3 top-4 bottom-8 flex flex-col justify-between text-[10px] md:text-label-caps text-outline w-12 z-10 select-none font-bold">
+          <div className="absolute left-2 sm:left-3 top-3 sm:top-4 bottom-6 sm:bottom-8 flex flex-col justify-between text-[9px] sm:text-label-caps text-outline w-10 sm:w-12 z-10 select-none font-bold">
             <span>{formatINR(maxVal, true)}</span>
             <span>{formatINR(maxVal * 0.75, true)}</span>
             <span>{formatINR(maxVal * 0.5, true)}</span>
@@ -68,7 +68,7 @@ export const PerformanceChart = () => {
           </div>
 
           {/* Grid Lines */}
-          <div className="absolute left-16 right-4 top-5 bottom-8 flex flex-col justify-between z-0 pointer-events-none">
+          <div className="absolute left-12 sm:left-16 right-2 sm:right-4 top-4 sm:top-5 bottom-6 sm:bottom-8 flex flex-col justify-between z-0 pointer-events-none">
             <div className="border-t border-[#D5C7B8]/60 w-full" />
             <div className="border-t border-[#D5C7B8]/60 w-full" />
             <div className="border-t border-[#D5C7B8]/60 w-full" />
@@ -77,54 +77,54 @@ export const PerformanceChart = () => {
           </div>
 
           {/* 3D Skeuomorphic Columns */}
-          <div className="ml-16 mr-4 flex justify-around items-end h-[190px] z-10 gap-6 md:gap-14 relative pb-1">
+          <div className="ml-12 sm:ml-16 mr-2 sm:mr-4 flex justify-around items-end h-[160px] sm:h-[190px] z-10 gap-3 sm:gap-8 md:gap-14 relative pb-1">
             {/* Target Column */}
-            <div className="w-16 md:w-28 group relative flex flex-col items-center justify-end h-full">
+            <div className="w-12 sm:w-20 md:w-28 group relative flex flex-col items-center justify-end h-full">
               <div
                 style={{ height: `${teamTargetPct}%` }}
-                className="w-full bg-gradient-to-r from-[#D8CEBF] via-[#ECE3D5] to-[#D0C4B2] border border-[#BDB09E] rounded-t-xl transition-all duration-700 relative flex items-center justify-center shadow-[2px_3px_8px_rgba(0,0,0,0.18),inset_0_2px_2px_rgba(255,255,255,0.9),inset_0_-2px_2px_rgba(0,0,0,0.15)]"
+                className="w-full bg-gradient-to-r from-[#D8CEBF] via-[#ECE3D5] to-[#D0C4B2] border border-[#BDB09E] rounded-t-lg sm:rounded-t-xl transition-all duration-700 relative flex items-center justify-center shadow-[2px_3px_8px_rgba(0,0,0,0.18),inset_0_2px_2px_rgba(255,255,255,0.9),inset_0_-2px_2px_rgba(0,0,0,0.15)]"
               >
-                <span className="text-[10px] font-black text-on-secondary-container opacity-0 group-hover:opacity-100 transition">
+                <span className="text-[9px] sm:text-[10px] font-black text-on-secondary-container opacity-0 group-hover:opacity-100 transition">
                   100%
                 </span>
               </div>
-              <span className="mt-2 text-xs font-black text-on-surface">Target</span>
+              <span className="mt-1.5 text-[10px] sm:text-xs font-black text-on-surface">Target</span>
               {/* Tooltip */}
-              <div className="absolute -top-10 bg-[#3e0211] text-white text-[11px] font-black py-1.5 px-2.5 rounded-xl opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-xl whitespace-nowrap z-20">
+              <div className="absolute -top-10 bg-[#3e0211] text-white text-[10px] sm:text-[11px] font-black py-1 px-2 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-xl whitespace-nowrap z-20">
                 Target: {formatINR(teamMetrics.totalTeamTarget)}
               </div>
             </div>
 
-            {/* Actual Column - Deep 3D Burgundy Cylinder */}
-            <div className="w-16 md:w-28 group relative flex flex-col items-center justify-end h-full">
+            {/* Actual Column */}
+            <div className="w-12 sm:w-20 md:w-28 group relative flex flex-col items-center justify-end h-full">
               <div
                 style={{ height: `${teamActualPct}%` }}
-                className="w-full bg-gradient-to-r from-[#4A0A17] via-[#6B1A2C] to-[#3B050E] border border-[#2B020A] rounded-t-xl transition-all duration-700 relative flex items-center justify-center shadow-[3px_4px_12px_rgba(62,2,17,0.4),inset_0_2px_3px_rgba(255,255,255,0.4),inset_0_-2px_3px_rgba(0,0,0,0.5)]"
+                className="w-full bg-gradient-to-r from-[#4A0A17] via-[#6B1A2C] to-[#3B050E] border border-[#2B020A] rounded-t-lg sm:rounded-t-xl transition-all duration-700 relative flex items-center justify-center shadow-[3px_4px_12px_rgba(62,2,17,0.4),inset_0_2px_3px_rgba(255,255,255,0.4),inset_0_-2px_3px_rgba(0,0,0,0.5)]"
               >
-                <span className="text-[10px] font-black text-white opacity-0 group-hover:opacity-100 transition">
+                <span className="text-[9px] sm:text-[10px] font-black text-white opacity-0 group-hover:opacity-100 transition">
                   {teamMetrics.teamAchievementPercentage}%
                 </span>
               </div>
-              <span className="mt-2 text-xs font-black text-primary">Actual</span>
+              <span className="mt-1.5 text-[10px] sm:text-xs font-black text-primary">Actual</span>
               {/* Tooltip */}
-              <div className="absolute -top-10 bg-[#5a1725] text-white text-[11px] font-black py-1.5 px-2.5 rounded-xl opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-xl whitespace-nowrap z-20">
+              <div className="absolute -top-10 bg-[#5a1725] text-white text-[10px] sm:text-[11px] font-black py-1 px-2 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-xl whitespace-nowrap z-20">
                 Actual: {formatINR(teamMetrics.totalActualSales)} ({teamMetrics.teamAchievementPercentage}%)
               </div>
             </div>
 
             {/* Projected Month-End Column */}
-            <div className="w-16 md:w-28 group relative flex flex-col items-center justify-end h-full">
+            <div className="w-12 sm:w-20 md:w-28 group relative flex flex-col items-center justify-end h-full">
               <div
                 style={{ height: `${teamProjectedPct}%` }}
-                className="w-full bg-gradient-to-r from-[#B80053] via-[#FF0073] to-[#990044] border border-[#800037] rounded-t-xl transition-all duration-700 relative flex items-center justify-center shadow-[3px_4px_14px_rgba(230,0,103,0.4),inset_0_2px_3px_rgba(255,255,255,0.5),inset_0_-2px_3px_rgba(0,0,0,0.4)]"
+                className="w-full bg-gradient-to-r from-[#B80053] via-[#FF0073] to-[#990044] border border-[#800037] rounded-t-lg sm:rounded-t-xl transition-all duration-700 relative flex items-center justify-center shadow-[3px_4px_14px_rgba(230,0,103,0.4),inset_0_2px_3px_rgba(255,255,255,0.5),inset_0_-2px_3px_rgba(0,0,0,0.4)]"
               >
-                <span className="text-[10px] font-black text-white opacity-0 group-hover:opacity-100 transition">
+                <span className="text-[9px] sm:text-[10px] font-black text-white opacity-0 group-hover:opacity-100 transition">
                   {teamMetrics.projectedPercentage}%
                 </span>
               </div>
-              <span className="mt-2 text-xs font-black text-brand-pink">Projected</span>
+              <span className="mt-1.5 text-[10px] sm:text-xs font-black text-brand-pink">Projected</span>
               {/* Tooltip */}
-              <div className="absolute -top-10 bg-brand-pink text-white text-[11px] font-black py-1.5 px-2.5 rounded-xl opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-xl whitespace-nowrap z-20">
+              <div className="absolute -top-10 bg-brand-pink text-white text-[10px] sm:text-[11px] font-black py-1 px-2 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-xl whitespace-nowrap z-20">
                 Projected: {formatINR(teamMetrics.projectedTotal)} ({teamMetrics.projectedPercentage}%)
               </div>
             </div>
@@ -132,26 +132,26 @@ export const PerformanceChart = () => {
         </div>
       ) : (
         /* Rep by Rep Comparison */
-        <div className="space-y-4 py-2">
+        <div className="space-y-3 py-1">
           {reps.map((rep) => {
             const achPct = rep.monthlyTarget > 0 ? Math.round((rep.actualSales / rep.monthlyTarget) * 100) : 0;
             const pipePct = rep.monthlyTarget > 0 ? Math.round((rep.expectedRealisticConversion / rep.monthlyTarget) * 100) : 0;
             
             return (
-              <div key={rep.id} className="space-y-2 p-3 rounded-2xl skeuo-inset">
-                <div className="flex justify-between items-center text-xs font-bold">
-                  <span className="text-on-surface flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-gradient-to-b from-[#6E1B2D] to-[#470815] text-white flex items-center justify-center text-[10px] font-black shadow-xs">
+              <div key={rep.id} className="space-y-1.5 p-2.5 sm:p-3 rounded-2xl skeuo-inset">
+                <div className="flex justify-between items-center text-[11px] sm:text-xs font-bold">
+                  <span className="text-on-surface flex items-center gap-1.5 sm:gap-2 truncate max-w-[140px] sm:max-w-none">
+                    <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gradient-to-b from-[#6E1B2D] to-[#470815] text-white flex items-center justify-center text-[9px] sm:text-[10px] font-black shadow-xs flex-shrink-0">
                       {rep.avatar}
                     </span>
-                    {rep.name}
+                    <span className="truncate">{rep.name}</span>
                   </span>
-                  <span className="text-on-surface-variant font-medium">
-                    <strong className="text-primary font-black">{formatINR(rep.actualSales)}</strong> / {formatINR(rep.monthlyTarget)} ({achPct}%)
+                  <span className="text-on-surface-variant font-medium text-right flex-shrink-0">
+                    <strong className="text-primary font-black">{formatINR(rep.actualSales)}</strong> / {formatINR(rep.monthlyTarget, true)} ({achPct}%)
                   </span>
                 </div>
                 {/* 3D Debossed Progress Bar */}
-                <div className="w-full h-4 bg-[#D6CCBF] rounded-full overflow-hidden flex shadow-[inset_2px_2px_4px_rgba(0,0,0,0.25)] border border-[#C5BAAC]">
+                <div className="w-full h-3 sm:h-4 bg-[#D6CCBF] rounded-full overflow-hidden flex shadow-[inset_2px_2px_4px_rgba(0,0,0,0.25)] border border-[#C5BAAC]">
                   <div
                     style={{ width: `${Math.min(100, achPct)}%` }}
                     className="bg-gradient-to-r from-[#4A0A17] to-[#6B1A2C] h-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]"
