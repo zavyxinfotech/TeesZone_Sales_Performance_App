@@ -4,109 +4,186 @@
 
 @layer base {
   body {
-    background-color: #F8F6F4;
+    background-color: #F0E8DF;
     color: #1b1c1c;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
+    background-image: radial-gradient(rgba(140, 120, 105, 0.08) 1px, transparent 0);
+    background-size: 24px 24px;
   }
 }
 
-/* Spatial UI Design System */
-.spatial-bg-ambient {
-  background: 
-    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(230, 0, 103, 0.05), transparent 70%),
-    radial-gradient(ellipse 50% 50% at 85% 20%, rgba(90, 23, 37, 0.04), transparent 70%),
-    radial-gradient(ellipse 70% 60% at 50% 90%, rgba(218, 124, 137, 0.06), transparent 70%),
-    #F8F6F4;
-}
+/* =========================================================
+   Skeuomorphic Physical Design System
+   ========================================================= */
 
-/* Spatial Glass Surface */
-.spatial-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+/* Skeuomorphic Convex Surface (Raised Physical Panel) */
+.skeuo-card {
+  background: linear-gradient(145deg, #ffffff 0%, #FAF5EE 100%);
+  border: 1px solid rgba(223, 212, 198, 0.85);
   box-shadow: 
-    0 10px 30px -5px rgba(62, 2, 17, 0.04),
-    0 4px 12px -2px rgba(62, 2, 17, 0.02),
-    inset 0 1px 1px rgba(255, 255, 255, 0.95);
+    6px 6px 16px rgba(166, 148, 131, 0.22),
+    -6px -6px 16px rgba(255, 255, 255, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(220, 205, 190, 0.3);
   border-radius: 1.25rem;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.spatial-card:hover {
+.skeuo-card:hover {
   transform: translateY(-2px);
   box-shadow: 
-    0 20px 40px -10px rgba(230, 0, 103, 0.12),
-    0 8px 16px -4px rgba(62, 2, 17, 0.04),
-    inset 0 1px 1px rgba(255, 255, 255, 1);
+    8px 10px 22px rgba(166, 148, 131, 0.28),
+    -8px -8px 20px rgba(255, 255, 255, 1),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
-/* Spatial Warm Glass Surface */
-.spatial-card-warm {
-  background: rgba(246, 238, 227, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(235, 225, 211, 0.9);
+/* Skeuomorphic Warm Convex Surface */
+.skeuo-card-warm {
+  background: linear-gradient(145deg, #FBF4EB 0%, #EFE3D3 100%);
+  border: 1px solid rgba(215, 198, 180, 0.9);
   box-shadow: 
-    0 10px 30px -5px rgba(100, 94, 83, 0.05),
-    0 4px 12px -2px rgba(100, 94, 83, 0.02),
-    inset 0 1px 1px rgba(255, 255, 255, 0.9);
+    6px 6px 16px rgba(150, 130, 110, 0.22),
+    -6px -6px 16px rgba(255, 255, 255, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 0 rgba(190, 170, 150, 0.35);
   border-radius: 1.25rem;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.spatial-card-warm:hover {
+.skeuo-card-warm:hover {
   transform: translateY(-2px);
   box-shadow: 
-    0 20px 40px -10px rgba(100, 94, 83, 0.12),
-    0 8px 16px -4px rgba(100, 94, 83, 0.05),
-    inset 0 1px 1px rgba(255, 255, 255, 1);
+    8px 10px 22px rgba(150, 130, 110, 0.28),
+    -8px -8px 20px rgba(255, 255, 255, 1),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 
-/* Spatial Header Glass Panel */
-.spatial-nav {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(229, 222, 212, 0.7);
-  box-shadow: 0 4px 20px -2px rgba(62, 2, 17, 0.03);
+/* Skeuomorphic Concave / Debossed Inset Well */
+.skeuo-inset {
+  background: linear-gradient(180deg, #E6DDD2 0%, #EFE8DF 100%);
+  box-shadow: 
+    inset 3px 3px 7px rgba(135, 115, 95, 0.25),
+    inset -3px -3px 7px rgba(255, 255, 255, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(205, 190, 175, 0.7);
 }
 
-/* Spatial Glass Pills */
-.spatial-pill {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+/* Skeuomorphic Tactile 3D Button (Pressed Physical Action) */
+.skeuo-btn {
+  background: linear-gradient(180deg, #FFFFFF 0%, #EDE4D8 100%);
+  border: 1px solid rgba(205, 190, 175, 0.85);
+  box-shadow: 
+    3px 4px 10px rgba(150, 130, 110, 0.22),
+    -3px -3px 8px rgba(255, 255, 255, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  transition: all 0.15s ease-out;
 }
 
+.skeuo-btn:hover {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5EDE3 100%);
+  box-shadow: 
+    4px 6px 14px rgba(150, 130, 110, 0.26),
+    -4px -4px 10px rgba(255, 255, 255, 1),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.skeuo-btn:active {
+  transform: translateY(2px);
+  background: linear-gradient(180deg, #E5DCcf 0%, #EFE8DE 100%);
+  box-shadow: 
+    inset 2px 3px 6px rgba(130, 110, 90, 0.3),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.85),
+    0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Skeuomorphic Primary Burgundy 3D Button */
+.skeuo-btn-primary {
+  background: linear-gradient(180deg, #6E1B2D 0%, #470815 100%);
+  border: 1px solid #35030E;
+  box-shadow: 
+    3px 4px 12px rgba(62, 2, 17, 0.35),
+    -2px -2px 6px rgba(255, 255, 255, 0.7),
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    inset 0 -2px 2px rgba(0, 0, 0, 0.4);
+  color: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  transition: all 0.15s ease-out;
+}
+
+.skeuo-btn-primary:hover {
+  background: linear-gradient(180deg, #7E2034 0%, #520B1A 100%);
+  box-shadow: 
+    4px 6px 16px rgba(62, 2, 17, 0.45),
+    -2px -2px 8px rgba(255, 255, 255, 0.8),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+.skeuo-btn-primary:active {
+  transform: translateY(2px);
+  background: linear-gradient(180deg, #3A050F 0%, #520B1A 100%);
+  box-shadow: 
+    inset 3px 3px 7px rgba(0, 0, 0, 0.6),
+    inset -1px -1px 3px rgba(255, 255, 255, 0.15);
+}
+
+/* Skeuomorphic Top Navigation */
+.skeuo-header {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5ECE0 100%);
+  border-bottom: 1px solid rgba(210, 195, 180, 0.9);
+  box-shadow: 
+    0 4px 14px rgba(150, 130, 110, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* Skeuomorphic Embossed Pill Badge */
+.skeuo-pill {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0E6D8 100%);
+  border: 1px solid rgba(215, 200, 185, 0.8);
+  box-shadow: 
+    2px 2px 6px rgba(150, 130, 110, 0.15),
+    -2px -2px 6px rgba(255, 255, 255, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* Data Table Skeuomorphic Header */
 .data-table-header {
-  background: rgba(245, 235, 221, 0.75);
+  background: linear-gradient(180deg, #F5EAE0 0%, #E8DCce 100%);
+  border-bottom: 1px solid #D5C7B8;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .data-table-row {
-  border-bottom: 1px solid rgba(229, 222, 212, 0.5);
+  border-bottom: 1px solid rgba(220, 208, 195, 0.6);
 }
 
-/* Custom Scrollbar */
+/* Skeuomorphic 3D Cylinder Bar Fill */
+.skeuo-bar-cylinder {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.2) 100%);
+  box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.4), inset 0 -2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Custom Tactile Scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(241, 237, 232, 0.5);
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #c8c6c5;
+  background: #E5DCD0;
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
 }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #B5A595 0%, #988575 100%);
+  border-radius: 4px;
+  border: 1px solid #D5C7B8;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #867274;
+  background: linear-gradient(180deg, #988575 0%, #7A6858 100%);
 }
 
-/* Pulse glow animation for Live badge */
+/* Pulse animation */
 @keyframes pulse-dot {
   0%, 100% {
     opacity: 1;

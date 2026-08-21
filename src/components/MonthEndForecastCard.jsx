@@ -10,9 +10,9 @@ export const MonthEndForecastCard = () => {
   const gapOrSurplus = teamMetrics.projectedTotal - teamMetrics.totalTeamTarget;
 
   return (
-    <div className="spatial-card-warm p-6 flex flex-col justify-between relative overflow-hidden h-full group">
+    <div className="skeuo-card-warm p-6 flex flex-col justify-between relative overflow-hidden h-full group">
       {/* Decorative background watermark */}
-      <div className="absolute -right-6 -bottom-6 text-outline-variant/15 pointer-events-none select-none group-hover:scale-105 transition-transform duration-500">
+      <div className="absolute -right-6 -bottom-6 text-[#96826E]/15 pointer-events-none select-none">
         <TrendingUp className="w-40 h-40" />
       </div>
 
@@ -22,50 +22,50 @@ export const MonthEndForecastCard = () => {
             <TrendingUp className="w-5 h-5 text-primary" />
             <span>Month-End Forecast</span>
           </h3>
-          <span className="spatial-pill text-[10px] font-extrabold tracking-wider uppercase px-2.5 py-1 rounded-full text-secondary">
+          <span className="skeuo-pill text-[10px] font-black tracking-wider uppercase px-3 py-1 rounded-full text-secondary">
             August Goal
           </span>
         </div>
 
         <div className="space-y-4">
           <div>
-            <div className="text-xs text-on-surface-variant font-medium mb-1">
+            <div className="text-xs text-on-surface-variant font-bold mb-1">
               Current Achievement (Till Today)
             </div>
-            <div className="text-xl sm:text-2xl font-black text-on-surface">
+            <div className="text-xl sm:text-2xl font-black text-on-surface drop-shadow-2xs">
               {formatINR(teamMetrics.totalActualSales)}
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-outline text-xs font-bold pl-2">
-            <Plus className="w-4 h-4 text-primary-container" />
+          <div className="flex items-center gap-2 text-outline text-xs font-black pl-2">
+            <Plus className="w-4 h-4 text-[#5A1424]" />
             <span>Expected Realistic Pipeline Conversion</span>
           </div>
 
           <div>
-            <div className="text-lg sm:text-xl font-extrabold text-primary-container">
+            <div className="text-lg sm:text-xl font-black text-[#5A1424] drop-shadow-2xs">
               {formatINR(teamMetrics.totalRealisticConversion)}
             </div>
           </div>
 
-          <div className="pt-4 border-t border-outline-variant/40">
-            <div className="text-label-caps text-on-surface-variant font-bold uppercase tracking-wider mb-1.5">
+          <div className="pt-4 border-t border-outline-variant/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+            <div className="text-label-caps text-on-surface-variant font-black uppercase tracking-wider mb-1.5">
               Projected Month-End Total
             </div>
             <div className="flex flex-wrap items-baseline gap-2.5 mb-2">
-              <span className="text-2xl sm:text-3xl font-black text-on-surface tracking-tight">
+              <span className="text-2xl sm:text-3xl font-black text-on-surface tracking-tight drop-shadow-xs">
                 {formatINR(teamMetrics.projectedTotal)}
               </span>
-              <span className={`text-xs font-black px-2.5 py-1 rounded-full border ${
+              <span className={`text-xs font-black px-3 py-1 rounded-full border shadow-2xs ${
                 isAchievable 
-                  ? 'bg-emerald-100/90 text-success border-emerald-300' 
-                  : 'bg-red-100/90 text-error border-red-300'
+                  ? 'bg-emerald-100 text-success border-emerald-300' 
+                  : 'bg-red-100 text-error border-red-300'
               }`}>
                 {teamMetrics.projectedPercentage}% of Target
               </span>
             </div>
 
-            <div className={`mt-2 flex items-center gap-2 text-xs font-bold ${
+            <div className={`mt-2 flex items-center gap-2 text-xs font-black ${
               isAchievable ? 'text-success' : 'text-error'
             }`}>
               {isAchievable ? (

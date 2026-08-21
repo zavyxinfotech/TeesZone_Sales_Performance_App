@@ -17,14 +17,14 @@ export const TeamTable = ({ onSelectRep }) => {
     switch (type) {
       case 'success':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50/90 text-success border border-emerald-200 shadow-2xs">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-gradient-to-b from-[#F0FDF4] to-[#DCFCE7] text-[#15803D] border border-[#86EFAC] shadow-[1px_2px_4px_rgba(21,128,61,0.15)]">
             <CheckCircle2 className="w-3.5 h-3.5" />
             {status}
           </span>
         );
       case 'warning':
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50/90 text-warning border border-amber-200 shadow-2xs">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-gradient-to-b from-[#FFFBEB] to-[#FEF3C7] text-[#B45309] border border-[#FDE68A] shadow-[1px_2px_4px_rgba(180,83,9,0.15)]">
             <Clock className="w-3.5 h-3.5" />
             {status}
           </span>
@@ -32,7 +32,7 @@ export const TeamTable = ({ onSelectRep }) => {
       case 'danger':
       default:
         return (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-50/90 text-error border border-red-200 shadow-2xs">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-gradient-to-b from-[#FEF2F2] to-[#FEE2E2] text-[#B91C1C] border border-[#FCA5A5] shadow-[1px_2px_4px_rgba(185,28,28,0.15)]">
             <AlertCircle className="w-3.5 h-3.5" />
             {status}
           </span>
@@ -41,15 +41,15 @@ export const TeamTable = ({ onSelectRep }) => {
   };
 
   return (
-    <div className="spatial-card overflow-hidden flex flex-col h-full">
+    <div className="skeuo-card overflow-hidden flex flex-col h-full">
       {/* Header & Filter Controls */}
-      <div className="p-5 md:p-6 border-b border-outline-variant/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="p-5 md:p-6 border-b border-outline-variant/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <h3 className="text-card-heading text-on-surface font-black">
             Team Performance & Pipeline Review Table
           </h3>
-          <p className="text-xs text-on-surface-variant mt-0.5">
-            Individual target breakdown ({reps.length} Active Representatives) • Click any row for 8-question review
+          <p className="text-xs text-on-surface-variant font-medium mt-0.5">
+            Individual Target Breakdown ({reps.length} Active Reps) • Click any row for 8-question review
           </p>
         </div>
 
@@ -62,40 +62,40 @@ export const TeamTable = ({ onSelectRep }) => {
               placeholder="Search representative or lead..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="spatial-pill w-full pl-10 pr-3.5 py-2 text-xs text-on-surface rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none transition"
+              className="skeuo-inset w-full pl-10 pr-3.5 py-2 text-xs text-on-surface rounded-xl focus:border-brand-pink focus:ring-1 focus:ring-brand-pink outline-none transition font-medium"
             />
           </div>
 
           {/* Filter Pills */}
-          <div className="spatial-pill flex items-center gap-1 p-1 rounded-xl text-xs font-bold overflow-x-auto">
+          <div className="skeuo-inset flex items-center gap-1 p-1 rounded-xl text-xs font-black overflow-x-auto">
             <button
               onClick={() => setFilterStatus('ALL')}
-              className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
-                filterStatus === 'ALL' ? 'bg-primary text-white shadow-xs' : 'text-on-surface-variant hover:text-primary'
+              className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                filterStatus === 'ALL' ? 'skeuo-btn-primary shadow-xs' : 'text-on-surface-variant hover:text-primary'
               }`}
             >
               All ({reps.length})
             </button>
             <button
               onClick={() => setFilterStatus('ON_TRACK')}
-              className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
-                filterStatus === 'ON_TRACK' ? 'bg-emerald-700 text-white shadow-xs' : 'text-on-surface-variant hover:text-primary'
+              className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                filterStatus === 'ON_TRACK' ? 'bg-[#15803D] text-white shadow-xs' : 'text-on-surface-variant hover:text-primary'
               }`}
             >
               On Track
             </button>
             <button
               onClick={() => setFilterStatus('NEEDS_ATTENTION')}
-              className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
-                filterStatus === 'NEEDS_ATTENTION' ? 'bg-amber-700 text-white shadow-xs' : 'text-on-surface-variant hover:text-primary'
+              className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                filterStatus === 'NEEDS_ATTENTION' ? 'bg-[#B45309] text-white shadow-xs' : 'text-on-surface-variant hover:text-primary'
               }`}
             >
               Needs Attention
             </button>
             <button
               onClick={() => setFilterStatus('PIPELINE_GAP')}
-              className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
-                filterStatus === 'PIPELINE_GAP' ? 'bg-red-700 text-white shadow-xs' : 'text-on-surface-variant hover:text-primary'
+              className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                filterStatus === 'PIPELINE_GAP' ? 'bg-[#B91C1C] text-white shadow-xs' : 'text-on-surface-variant hover:text-primary'
               }`}
             >
               Pipeline Gap
@@ -122,7 +122,7 @@ export const TeamTable = ({ onSelectRep }) => {
           <tbody className="divide-y divide-outline-variant/30 text-xs md:text-sm font-medium">
             {filteredReps.length === 0 ? (
               <tr>
-                <td colSpan={8} className="p-8 text-center text-on-surface-variant">
+                <td colSpan={8} className="p-8 text-center text-on-surface-variant font-bold">
                   No sales representatives found matching your search.
                 </td>
               </tr>
@@ -135,19 +135,19 @@ export const TeamTable = ({ onSelectRep }) => {
                   <tr
                     key={rep.id}
                     onClick={() => onSelectRep(rep)}
-                    className="hover:bg-pink-50/30 transition-all cursor-pointer group"
+                    className="hover:bg-amber-50/40 transition-all cursor-pointer group"
                   >
                     {/* Representative Name & Avatar */}
                     <td className="p-4 pl-6">
                       <div className="flex items-center gap-3">
-                        <div className={`w-9 h-9 rounded-full ${rep.avatarColor || 'bg-primary text-white'} flex items-center justify-center text-xs font-black shadow-xs`}>
+                        <div className="w-9 h-9 rounded-full bg-gradient-to-b from-[#6E1B2D] to-[#470815] text-white flex items-center justify-center text-xs font-black shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_2px_4px_rgba(0,0,0,0.25)]">
                           {rep.avatar || rep.name.charAt(0)}
                         </div>
                         <div>
-                          <div className="font-extrabold text-on-surface group-hover:text-brand-pink transition">
+                          <div className="font-black text-on-surface group-hover:text-brand-pink transition">
                             {rep.name}
                           </div>
-                          <div className="text-[11px] text-on-surface-variant">
+                          <div className="text-[11px] text-on-surface-variant font-medium">
                             {rep.email}
                           </div>
                         </div>
@@ -155,22 +155,22 @@ export const TeamTable = ({ onSelectRep }) => {
                     </td>
 
                     {/* Monthly Target */}
-                    <td className="p-4 text-on-surface-variant font-bold">
+                    <td className="p-4 text-on-surface-variant font-black">
                       {formatINR(rep.monthlyTarget)}
                     </td>
 
                     {/* Q1: Actual Achieved */}
                     <td className="p-4">
-                      <div className="font-black text-primary">
+                      <div className="font-black text-[#5A1424] drop-shadow-2xs">
                         {formatINR(rep.actualSales)}
                       </div>
-                      <div className="text-[11px] text-on-surface-variant font-semibold">
+                      <div className="text-[11px] text-on-surface-variant font-bold">
                         {percentAchieved}% of ₹3L
                       </div>
                     </td>
 
                     {/* Q2: Balance Required */}
-                    <td className="p-4 font-bold text-secondary">
+                    <td className="p-4 font-black text-secondary">
                       {formatINR(balance)}
                     </td>
 
@@ -203,7 +203,7 @@ export const TeamTable = ({ onSelectRep }) => {
                           e.stopPropagation();
                           onSelectRep(rep);
                         }}
-                        className="spatial-pill inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-primary hover:bg-brand-pink hover:text-white transition-all shadow-xs group-hover:border-brand-pink/40"
+                        className="skeuo-btn inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black text-primary hover:text-brand-pink transition cursor-pointer"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         <span>View 8 Qs</span>
