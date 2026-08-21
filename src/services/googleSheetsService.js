@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import { INITIAL_SALES_REPRESENTATIVES, DEFAULT_REVIEW_METADATA } from '../data/defaultSalesData';
+import { INITIAL_SALES_REPRESENTATIVES, DEFAULT_REVIEW_METADATA } from '../data/defaultSalesData.js';
 
 const STORAGE_KEYS = {
   REPS_DATA: 'teeszone_sales_reps_data_v1',
@@ -56,16 +56,15 @@ export function convertToExportCsvUrl(url) {
   if (!url) return '';
   const trimmed = url.trim();
   
-  // If already a CSV published URL
-  if (trimmed.includes('output=csv') || trimmed.includes('tqx=out:csv')) {
+  // If already a direct export CSV URL
+  if (trimmed.includes('export?format=csv') || trimmed.includes('output=csv') || trimmed.includes('tqx=out:csv')) {
     return trimmed;
   }
   
-  // If standard Google Sheet edit link: https://docs.google.com/spreadsheets/d/{ID}/edit#gid=0
+  // If standard Google Sheet edit link: https://docs.google.com/spreadsheets/d/{ID}/edit...
   const match = trimmed.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
   if (match && match[1]) {
     const sheetId = match[1];
-    // Check for gid
     const gidMatch = trimmed.match(/gid=([0-9]+)/);
     const gid = gidMatch ? gidMatch[1] : '0';
     return `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gid}`;
@@ -98,7 +97,7 @@ export function parseSheetRowsToReps(rows, defaultTarget = 300000) {
     const name = String(rawName || '').trim();
     if (!name) return; // Skip empty row
 
-    // Find Target
+    // Find Target (e.g. 300000, 200000)
     const targetKey = Object.keys(row).find(k => /target|monthly target/i.test(k));
     const target = targetKey ? parseCurrencyOrNumber(row[targetKey], defaultTarget) : defaultTarget;
 
@@ -117,7 +116,7 @@ export function parseSheetRowsToReps(rows, defaultTarget = 300000) {
     // Q5: Hot / Warm / New status
     const hotKey = Object.keys(row).find(k => /hot/i.test(k));
     const warmKey = Object.keys(row).find(k => /warm/i.test(k));
-    const newLeadKey = Object.keys(row).find(k => /new lead|new status/i.test(k));
+    const newLeadKey = Object.keys(row).find(k => /new lead|new status|5.*new/i.test(k));
 
     const hotCount = hotKey ? parseCurrencyOrNumber(row[hotKey], Math.max(1, Math.round(activeLeadsCount * 0.35))) : Math.max(1, Math.round(activeLeadsCount * 0.35));
     const warmCount = warmKey ? parseCurrencyOrNumber(row[warmKey], Math.max(1, Math.round(activeLeadsCount * 0.45))) : Math.max(1, Math.round(activeLeadsCount * 0.45));
@@ -164,7 +163,7 @@ export function parseSheetRowsToReps(rows, defaultTarget = 300000) {
       activeLeadsCount,
       totalPipelineValue,
       expectedRealisticConversion,
-      newLeadsRequired: newLeadsRequired || (balance > expectedRealisticConversion ? Math.ceil((balance - expectedRealisticConversion) / 25000) : 0),
+      newLeadsRequired: newLeadsRequired !== undefined ? newLeadsRequired : (balance > expectedRealisticConversion ? Math.ceil((balance - expectedRealisticConversion) / 25000) : 0),
       status,
       statusType,
       leadBreakdown: {
@@ -173,7 +172,7 @@ export function parseSheetRowsToReps(rows, defaultTarget = 300000) {
         newLeads: { count: newCount, value: Math.round(totalPipelineValue * 0.10) }
       },
       realisticLeads: [
-        { id: `${repId}-l1`, client: `${name}'s Key Account (Bulk Tees Order)`, value: Math.round(expectedRealisticConversion * 0.55), status: 'Hot', date: '26 Aug 2026', prob: '85%' },
+        { id: `${repId}-l1`, client: `${name}'s Key Account (Bulk Order)`, value: Math.round(expectedRealisticConversion * 0.55), status: 'Hot', date: '26 Aug 2026', prob: '85%' },
         { id: `${repId}-l2`, client: `${name}'s Secondary Lead (Custom Merch)`, value: Math.round(expectedRealisticConversion * 0.45), status: 'Hot', date: '29 Aug 2026', prob: '80%' }
       ],
       actionPlan,
@@ -192,31 +191,40 @@ export async function fetchLiveGoogleSheetData(csvUrl, defaultTarget = 300000) {
 
   const directUrl = convertToExportCsvUrl(csvUrl);
 
-  return new Promise((resolve, reject) => {
-    Papa.parse(directUrl, {
-      download: true,
-      header: true,
-      dynamicTyping: true,
-      skipEmptyLines: true,
-      complete: (results) => {
-        if (results.data && results.data.length > 0) {
-          const parsedReps = parseSheetRowsToReps(results.data, defaultTarget);
-          if (parsedReps.length > 0) {
-            resolve({
-              reps: parsedReps,
-              rowCount: results.data.length,
-              timestamp: new Date().toISOString()
-            });
-            return;
+  try {
+    const response = await fetch(directUrl);
+    if (!response.ok) {
+      throw new Error(`HTTP Error ${response.status}: Failed to download sheet`);
+    }
+    const csvText = await response.text();
+    
+    return new Promise((resolve, reject) => {
+      Papa.parse(csvText, {
+        header: true,
+        dynamicTyping: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          if (results.data && results.data.length > 0) {
+            const parsedReps = parseSheetRowsToReps(results.data, defaultTarget);
+            if (parsedReps.length > 0) {
+              resolve({
+                reps: parsedReps,
+                rowCount: results.data.length,
+                timestamp: new Date().toISOString()
+              });
+              return;
+            }
           }
+          reject(new Error('No valid sales representative rows found in the sheet. Please ensure headers include Rep Name and Sales data.'));
+        },
+        error: (error) => {
+          reject(new Error(`CSV parsing error: ${error.message}`));
         }
-        reject(new Error('No valid sales representative rows found in the sheet. Please ensure headers include Rep Name and Sales data.'));
-      },
-      error: (error) => {
-        reject(new Error(`Failed to load Google Sheet: ${error.message || 'Network / CORS error. Ensure sheet is published as Web CSV.'}`));
-      }
+      });
     });
-  });
+  } catch (err) {
+    throw new Error(err.message || 'Network error fetching Google Sheet data');
+  }
 }
 
 // Local Storage helpers

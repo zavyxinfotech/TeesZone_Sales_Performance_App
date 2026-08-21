@@ -5,8 +5,8 @@ import {
   saveCachedSalesReps,
   loadSheetConfig,
   saveSheetConfig
-} from '../services/googleSheetsService';
-import { INITIAL_SALES_REPRESENTATIVES, DEFAULT_REVIEW_METADATA } from '../data/defaultSalesData';
+} from '../services/googleSheetsService.js';
+import { INITIAL_SALES_REPRESENTATIVES, DEFAULT_REVIEW_METADATA } from '../data/defaultSalesData.js';
 
 const SalesDataContext = createContext(null);
 
@@ -35,7 +35,7 @@ export const SalesDataProvider = ({ children }) => {
   const syncWithGoogleSheet = useCallback(async (customUrl) => {
     const urlToUse = customUrl || config.sheetCsvUrl;
     if (!urlToUse || !urlToUse.trim()) {
-      setSyncError('Please provide a Google Sheet published CSV link in settings.');
+      setSyncError('Please provide a Google Sheet link in settings.');
       return false;
     }
 
@@ -59,13 +59,20 @@ export const SalesDataProvider = ({ children }) => {
     return false;
   }, [config.sheetCsvUrl, config.defaultTargetPerPerson]);
 
-  // Periodic Auto-Sync if CSV URL is configured
+  // Initial Sync on component mount
+  useEffect(() => {
+    if (config.sheetCsvUrl) {
+      syncWithGoogleSheet(config.sheetCsvUrl);
+    }
+  }, []);
+
+  // Periodic Auto-Sync if CSV URL is configured (every 15-30s)
   useEffect(() => {
     if (!config.sheetCsvUrl) return;
 
     const intervalId = setInterval(() => {
       syncWithGoogleSheet();
-    }, (config.autoSyncIntervalSec || 30) * 1000);
+    }, (config.autoSyncIntervalSec || 15) * 1000);
 
     return () => clearInterval(intervalId);
   }, [config.sheetCsvUrl, config.autoSyncIntervalSec, syncWithGoogleSheet]);
@@ -129,11 +136,12 @@ export const SalesDataProvider = ({ children }) => {
     });
   }, [config.defaultTargetPerPerson]);
 
-  // Reset to default Ramya, Vijayadarshini, Archana baseline
+  // Reset to default baseline
   const resetToDefault = () => {
     setReps(INITIAL_SALES_REPRESENTATIVES);
     setConfig(DEFAULT_REVIEW_METADATA);
     setSyncError(null);
+    syncWithGoogleSheet(DEFAULT_REVIEW_METADATA.sheetCsvUrl);
   };
 
   // Aggregated Team Analytics

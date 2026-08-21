@@ -1,14 +1,14 @@
 // Default initial data for Teeszone August Sales Pipeline Review
-// If Google Sheets URL is connected, this data is dynamically overwritten with live Google Sheet / Form rows!
+// Connected directly to user's Google Sheet URL
 
 export const DEFAULT_REVIEW_METADATA = {
   title: "TODAY'S SALES PIPELINE REVIEW – AUGUST",
   meetingDate: "August 2026",
   defaultTargetPerPerson: 300000,
   currencySymbol: "₹",
-  formUrl: "https://docs.google.com/forms/d/e/1FAIpQLSc_EXAMPLE_FORM_ID/viewform",
-  sheetCsvUrl: "", // Users can paste their Google Sheet published CSV URL
-  autoSyncIntervalSec: 30,
+  formUrl: "https://docs.google.com/spreadsheets/d/1ZlAk6loPzw9dXBfUSvMfzgzX4e9bOsHnkDtz0arXrp8/edit?usp=sharing",
+  sheetCsvUrl: "https://docs.google.com/spreadsheets/d/1ZlAk6loPzw9dXBfUSvMfzgzX4e9bOsHnkDtz0arXrp8/export?format=csv&gid=0",
+  autoSyncIntervalSec: 15,
 };
 
 export const INITIAL_SALES_REPRESENTATIVES = [
@@ -23,9 +23,9 @@ export const INITIAL_SALES_REPRESENTATIVES = [
     activeLeadsCount: 16,
     totalPipelineValue: 260000,
     expectedRealisticConversion: 175000,
-    newLeadsRequired: 2,
+    newLeadsRequired: 0,
     status: "On Track",
-    statusType: "success", // success, warning, danger
+    statusType: "success",
     leadBreakdown: {
       hot: { count: 5, value: 140000 },
       warm: { count: 7, value: 85000 },
@@ -36,10 +36,8 @@ export const INITIAL_SALES_REPRESENTATIVES = [
       { id: "l-102", client: "Apex Fitness Chain (Dry-fit tees 350 pcs)", value: 60000, status: "Hot", date: "27 Aug 2026", prob: "85%" },
       { id: "l-103", client: "GreenRoots Event Planners (Event Tees)", value: 40000, status: "Warm", date: "29 Aug 2026", prob: "70%" }
     ],
-    // Q7: How you are going to achieve the remaining target before 31 August
-    actionPlan: "Follow up daily with TechCorp procurement for PO release by Aug 24. Conduct sample demo for Apex Fitness on Aug 25 to close full advance payment before Aug 27.",
-    // Q8: If the existing pipeline is insufficient, how many new leads needed
-    pipelineAdequacyNotes: "Current realistic pipeline (₹1.75L) exceeds remaining gap (₹1.10L). 2 new backup leads being targeted from healthcare & college fest segments."
+    actionPlan: "Follow up daily with TechCorp procurement for PO release. Conduct sample demo for Apex Fitness on Aug 25 to close full advance payment before Aug 27.",
+    pipelineAdequacyNotes: "Current realistic pipeline (₹1.75L) exceeds remaining gap (₹1.10L). 0 new backup leads required."
   },
   {
     id: "rep-vijayadarshini",
@@ -94,5 +92,31 @@ export const INITIAL_SALES_REPRESENTATIVES = [
     ],
     actionPlan: "Speed up sample delivery for St. Xavier Alumni committee. Re-engage 5 past client accounts from Q2 for repeat corporate apparel orders.",
     pipelineAdequacyNotes: "Balance required is ₹1.60L while realistic leads stand at ₹1.10L. Need ₹50k additional pipeline: reaching out to 4 fresh corporate leads immediately."
+  },
+  {
+    id: "rep-nithya",
+    name: "Nithya",
+    avatar: "N",
+    avatarColor: "bg-[#E60067] text-white",
+    email: "nithya@teeszone.com",
+    monthlyTarget: 200000,
+    actualSales: 150000,
+    activeLeadsCount: 20,
+    totalPipelineValue: 390000,
+    expectedRealisticConversion: 110000,
+    newLeadsRequired: 4,
+    status: "On Track",
+    statusType: "success",
+    leadBreakdown: {
+      hot: { count: 5, value: 160000 },
+      warm: { count: 5, value: 130000 },
+      newLeads: { count: 4, value: 100000 }
+    },
+    realisticLeads: [
+      { id: "l-401", client: "Kovai Corporate Sports Fest (800 Jerseys)", value: 65000, status: "Hot", date: "26 Aug 2026", prob: "90%" },
+      { id: "l-402", client: "Metro Hospital Staff Uniforms", value: 45000, status: "Hot", date: "28 Aug 2026", prob: "85%" }
+    ],
+    actionPlan: "Speed up sample delivery for Kovai Corporate Sports Committee. Re-engage 5 past client accounts from Q2 for repeat corporate apparel orders.",
+    pipelineAdequacyNotes: "Balance required is ₹50k while realistic conversion stands at ₹1.10L. Target comfortably achievable."
   }
 ];
