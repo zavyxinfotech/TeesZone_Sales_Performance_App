@@ -16,7 +16,6 @@ export const PerformanceChart = () => {
 
   const teamTargetPct = Math.min(100, Math.round((teamMetrics.totalTeamTarget / maxVal) * 100));
   const teamActualPct = Math.min(100, Math.round((teamMetrics.totalActualSales / maxVal) * 100));
-  const teamProjectedPct = Math.min(100, Math.round((teamMetrics.projectedTotal / maxVal) * 100));
 
   return (
     <div className="skeuo-card p-4 sm:p-6 flex flex-col justify-between h-full">
@@ -27,7 +26,7 @@ export const PerformanceChart = () => {
             <span>Target vs Actual Performance</span>
           </h3>
           <p className="text-[10px] sm:text-xs text-on-surface-variant font-medium mt-0.5">
-            Tactile Comparison • Target vs Actual vs Projected
+            Tactile Comparison • Target vs Actual
           </p>
         </div>
 
@@ -113,31 +112,14 @@ export const PerformanceChart = () => {
               </div>
             </div>
 
-            {/* Projected Month-End Column */}
-            <div className="w-12 sm:w-20 md:w-28 group relative flex flex-col items-center justify-end h-full">
-              <div
-                style={{ height: `${teamProjectedPct}%` }}
-                className="w-full bg-gradient-to-r from-[#B80053] via-[#FF0073] to-[#990044] border border-[#800037] rounded-t-lg sm:rounded-t-xl transition-all duration-700 relative flex items-center justify-center shadow-[3px_4px_14px_rgba(230,0,103,0.4),inset_0_2px_3px_rgba(255,255,255,0.5),inset_0_-2px_3px_rgba(0,0,0,0.4)]"
-              >
-                <span className="text-[9px] sm:text-[10px] font-black text-white opacity-0 group-hover:opacity-100 transition">
-                  {teamMetrics.projectedPercentage}%
-                </span>
-              </div>
-              <span className="mt-1.5 text-[10px] sm:text-xs font-black text-brand-pink">Projected</span>
-              {/* Tooltip */}
-              <div className="absolute -top-10 bg-brand-pink text-white text-[10px] sm:text-[11px] font-black py-1 px-2 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition pointer-events-none shadow-xl whitespace-nowrap z-20">
-                Projected: {formatINR(teamMetrics.projectedTotal)} ({teamMetrics.projectedPercentage}%)
-              </div>
-            </div>
+          
           </div>
         </div>
       ) : (
         /* Rep by Rep Comparison (Default Initial View) */
         <div className="space-y-3 py-1">
           {reps.map((rep) => {
-            const achPct = rep.monthlyTarget > 0 ? Math.round((rep.actualSales / rep.monthlyTarget) * 100) : 0;
-            const pipePct = rep.monthlyTarget > 0 ? Math.round((rep.expectedRealisticConversion / rep.monthlyTarget) * 100) : 0;
-            
+            const achPct = rep.monthlyTarget > 0 ? Math.round((rep.actualSales / rep.monthlyTarget) * 100) : 0;            
             return (
               <div key={rep.id} className="space-y-1.5 p-2.5 sm:p-3 rounded-2xl skeuo-inset">
                 <div className="flex justify-between items-center text-[11px] sm:text-xs font-bold">
@@ -158,11 +140,7 @@ export const PerformanceChart = () => {
                     className="bg-gradient-to-r from-[#4A0A17] to-[#6B1A2C] h-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]"
                     title={`Actual: ${formatINR(rep.actualSales)}`}
                   />
-                  <div
-                    style={{ width: `${Math.min(100 - achPct, pipePct)}%` }}
-                    className="bg-gradient-to-r from-[#D90060] to-[#FF2E88] h-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]"
-                    title={`Expected Conversion: ${formatINR(rep.expectedRealisticConversion)}`}
-                  />
+                 
                 </div>
               </div>
             );
