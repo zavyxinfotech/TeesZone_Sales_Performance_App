@@ -138,7 +138,7 @@ export const SalesDataProvider = ({ children }) => {
 
   // Reset to default baseline
   const resetToDefault = () => {
-    setReps(INITIAL_SALES_REPRESENTATIVES);
+    setReps([]);
     setConfig(DEFAULT_REVIEW_METADATA);
     setSyncError(null);
     syncWithGoogleSheet(DEFAULT_REVIEW_METADATA.sheetCsvUrl);

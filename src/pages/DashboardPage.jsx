@@ -5,7 +5,7 @@ import { Navbar } from '../components/Navbar';
 import { KPIGrid } from '../components/KPIGrid';
 import { PerformanceChart } from '../components/PerformanceChart';
 import { PipelineHealthCard } from '../components/PipelineHealthCard';
-import { MonthEndForecastCard } from '../components/MonthEndForecastCard';
+
 import { TeamTable } from '../components/TeamTable';
 import { RepDetailModal } from '../components/RepDetailModal';
 import { SyncConfigModal } from '../components/SyncConfigModal';
@@ -148,13 +148,10 @@ export const DashboardPage = () => {
           {/* Row 2: 4 Primary Skeuomorphic KPI Cards */}
           <KPIGrid />
 
-          {/* Row 3: Bottom Row: Team Performance Table & Forecast */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-            <div className="lg:col-span-2">
+          {/* Row 3: Bottom Row: Team Performance Table */}
+          <div className="grid grid-cols-1 gap-4 sm:gap-6">
+            <div className="w-full">
               <TeamTable onSelectRep={(rep) => setSelectedRep(rep)} />
-            </div>
-            <div>
-              <MonthEndForecastCard />
             </div>
           </div>
         </main>

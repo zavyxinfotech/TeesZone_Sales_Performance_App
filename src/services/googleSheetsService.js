@@ -91,8 +91,8 @@ export function parseSheetRowsToReps(rows, defaultTarget = 300000) {
   rows.forEach((row, index) => {
     // Find representative name across potential column headers
     const nameKey = Object.keys(row).find(k => 
-      /name|representative|salesperson|person|team member|rep/i.test(k)
-    );
+      /name|representative|salesperson|person|team member|rep|executive/i.test(k)
+    ) || Object.keys(row)[0];
     const rawName = nameKey ? row[nameKey] : (row['Name'] || row['Rep'] || `Sales Rep ${index + 1}`);
     const name = String(rawName || '').trim();
     if (!name) return; // Skip empty row
@@ -102,38 +102,44 @@ export function parseSheetRowsToReps(rows, defaultTarget = 300000) {
     const target = targetKey ? parseCurrencyOrNumber(row[targetKey], defaultTarget) : defaultTarget;
 
     // Q1: Actual sales achieved
-    const actualKey = Object.keys(row).find(k => /1|actual|achieved|sales achieved|current sales/i.test(k));
+    const actualKey = Object.keys(row).find(k => /1\.?|actual|achieved|sales achieved|current sales/i.test(k));
     const actualSales = actualKey ? parseCurrencyOrNumber(row[actualKey], 0) : 0;
 
     // Q3: Active leads available
-    const activeLeadsKey = Object.keys(row).find(k => /3|active leads|current active|leads count/i.test(k));
+    const activeLeadsKey = Object.keys(row).find(k => /3\.?|active leads|current active|leads count/i.test(k));
     const activeLeadsCount = activeLeadsKey ? parseCurrencyOrNumber(row[activeLeadsKey], 0) : 0;
 
     // Q4: Lead-wise expected order value / Total pipeline
-    const pipelineKey = Object.keys(row).find(k => /4|expected order value|pipeline value|lead-wise/i.test(k));
+    const pipelineKey = Object.keys(row).find(k => /4\.?|expected order value|pipeline value|lead-wise/i.test(k));
     const totalPipelineValue = pipelineKey ? parseCurrencyOrNumber(row[pipelineKey], 0) : 0;
 
     // Q5: Hot / Warm / New status
     const hotKey = Object.keys(row).find(k => /hot/i.test(k));
     const warmKey = Object.keys(row).find(k => /warm/i.test(k));
-    const newLeadKey = Object.keys(row).find(k => /new lead|new status|5.*new/i.test(k));
+    const newLeadKey = Object.keys(row).find(k => /5.*new/i.test(k));
 
-    const hotCount = hotKey ? parseCurrencyOrNumber(row[hotKey], Math.max(1, Math.round(activeLeadsCount * 0.35))) : Math.max(1, Math.round(activeLeadsCount * 0.35));
-    const warmCount = warmKey ? parseCurrencyOrNumber(row[warmKey], Math.max(1, Math.round(activeLeadsCount * 0.45))) : Math.max(1, Math.round(activeLeadsCount * 0.45));
-    const newCount = newLeadKey ? parseCurrencyOrNumber(row[newLeadKey], Math.max(0, activeLeadsCount - hotCount - warmCount)) : Math.max(0, activeLeadsCount - hotCount - warmCount);
+    const hotCount = hotKey ? parseCurrencyOrNumber(row[hotKey], 0) : 0;
+    const warmCount = warmKey ? parseCurrencyOrNumber(row[warmKey], 0) : 0;
+    const newCount = newLeadKey ? parseCurrencyOrNumber(row[newLeadKey], 0) : 0;
+
+    // If activeLeadsCount is present but hot/warm/new is 0, we can use those counts
+    const finalHotCount = hotCount || Math.max(1, Math.round(activeLeadsCount * 0.35));
+    const finalWarmCount = warmCount || Math.max(1, Math.round(activeLeadsCount * 0.45));
+    const finalNewCount = newCount || Math.max(0, activeLeadsCount - finalHotCount - finalWarmCount);
 
     // Q6: Realistic converted leads
-    const realisticConvKey = Object.keys(row).find(k => /6|realistic|converted this month|can realistically/i.test(k));
+    const realisticConvKey = Object.keys(row).find(k => /6\.?|realistic|converted this month|can realistically/i.test(k));
     const rawRealistic = realisticConvKey ? row[realisticConvKey] : '';
     const expectedRealisticConversion = parseCurrencyOrNumber(rawRealistic, Math.round(totalPipelineValue * 0.65));
 
     // Q7: Action Plan
-    const actionKey = Object.keys(row).find(k => /7|action plan|achieve the remaining|strategy|how you are going/i.test(k));
+    const actionKey = Object.keys(row).find(k => /7\.?|action plan|achieve the remaining|strategy|how you are going/i.test(k));
     const actionPlan = actionKey && row[actionKey] ? String(row[actionKey]).trim() : 'Aggressive outreach on high-probability opportunities, daily pipeline reviews, and prioritizing immediate closing accounts.';
 
     // Q8: New Leads Needed / Pipe Adequacy
-    const newLeadsKey = Object.keys(row).find(k => /8|insufficient|how many new leads|new leads needed/i.test(k));
-    const newLeadsRequired = newLeadsKey ? parseCurrencyOrNumber(row[newLeadsKey], 0) : 0;
+    const newLeadsKey = Object.keys(row).find(k => /8\.?.*new|how many new leads needed/i.test(k));
+    const rawNewLeads = newLeadsKey ? row[newLeadsKey] : undefined;
+    const newLeadsRequired = rawNewLeads !== undefined && rawNewLeads !== '' ? parseCurrencyOrNumber(rawNewLeads, 0) : undefined;
 
     const balance = Math.max(0, target - actualSales);
     let status = 'On Track';
@@ -167,13 +173,13 @@ export function parseSheetRowsToReps(rows, defaultTarget = 300000) {
       status,
       statusType,
       leadBreakdown: {
-        hot: { count: hotCount, value: Math.round(totalPipelineValue * 0.55) },
-        warm: { count: warmCount, value: Math.round(totalPipelineValue * 0.35) },
-        newLeads: { count: newCount, value: Math.round(totalPipelineValue * 0.10) }
+        hot: { count: finalHotCount, value: Math.round(totalPipelineValue * 0.55) },
+        warm: { count: finalWarmCount, value: Math.round(totalPipelineValue * 0.35) },
+        newLeads: { count: finalNewCount, value: Math.round(totalPipelineValue * 0.10) }
       },
       realisticLeads: [
-        { id: `${repId}-l1`, client: `${name}'s Key Account (Bulk Order)`, value: Math.round(expectedRealisticConversion * 0.55), status: 'Hot', date: '26 Aug 2026', prob: '85%' },
-        { id: `${repId}-l2`, client: `${name}'s Secondary Lead (Custom Merch)`, value: Math.round(expectedRealisticConversion * 0.45), status: 'Hot', date: '29 Aug 2026', prob: '80%' }
+        { id: `${repId}-l1`, client: `Primary Lead`, value: Math.round(expectedRealisticConversion * 0.55), status: 'Hot', date: '26 Aug 2026', prob: '85%' },
+        { id: `${repId}-l2`, client: `Secondary Lead`, value: Math.round(expectedRealisticConversion * 0.45), status: 'Warm', date: '29 Aug 2026', prob: '80%' }
       ],
       actionPlan,
       pipelineAdequacyNotes: typeof rawRealistic === 'string' && rawRealistic.length > 20 ? rawRealistic : `Remaining balance required is ${formatINR(balance)}. Target is achievable with current warm/hot pipeline.`
@@ -240,7 +246,7 @@ export function loadCachedSalesReps() {
   } catch (e) {
     console.error('Error loading cached reps', e);
   }
-  return INITIAL_SALES_REPRESENTATIVES;
+  return [];
 }
 
 export function saveCachedSalesReps(reps) {
